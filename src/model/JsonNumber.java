@@ -1,7 +1,7 @@
-package entity;
+package model;
 
 public class JsonNumber extends JsonNode {
-    Number jsonNumber;
+   private Number jsonNumber;
 
     public Number getJsonNumber() {
         return jsonNumber;

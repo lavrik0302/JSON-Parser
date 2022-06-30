@@ -1,4 +1,4 @@
-package entity;
+package model;
 
 import java.util.*;
 
@@ -14,29 +14,12 @@ public final class JsonArray extends JsonNode implements Iterable<JsonNode> {
         this.values = new ArrayList<>();
     }
 
-    public JsonArray getArray(int pos) {
-        return (JsonArray) values.get(pos);
-    }
-
-    public JsonObject getObject(int pos) {
-        return (JsonObject) values.get(pos);
-    }
-
-    public JsonBoolean getBoolean(int pos) {
-        return (JsonBoolean) values.get(pos);
-    }
-
-    public JsonString getString(int pos) {
-        return (JsonString) values.get(pos);
-    }
-
-    public JsonNumber getNumber(int pos) {
-        return (JsonNumber) values.get(pos);
-    }
-
-
     public Object get(int index) {
         return values.get(index);
+    }
+
+    public void add(int index, JsonNode value) {
+        values.add(index, value);
     }
 
     public int size() {

@@ -1,7 +1,7 @@
-package entity;
+package model;
 
 public class JsonBoolean extends JsonNode {
-    boolean jsonBoolean;
+   private boolean jsonBoolean;
 
     public void setJsonBoolean(boolean jsonBoolean) {
         this.jsonBoolean = jsonBoolean;

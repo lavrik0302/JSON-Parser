@@ -1,4 +1,4 @@
-package entity;
+package model;
 
 public abstract class JsonNode {
 
