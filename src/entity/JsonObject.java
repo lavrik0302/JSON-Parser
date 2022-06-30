@@ -22,26 +22,9 @@ public final class JsonObject extends JsonNode {
         return values.get(key);
     }
 
-    public JsonArray getArray(String key) {
-        return (JsonArray) values.get(key);
-    }
-
-    public JsonObject getObject(String key) {
-        return (JsonObject) values.get(key);
-    }
-
-    public JsonNumber getNumber(String key) {
-        return (JsonNumber) values.get(key);
-    }
-
-
-    public JsonString getString(String key) {
-        return (JsonString) values.get(key);
-    }
-
-    public JsonBoolean getBoolean(String key) {
-        return (JsonBoolean) values.get(key);
-    }
+  public void add(String key, JsonNode value){
+        values.put(key, value);
+  }
 
     public int size() {
         return values.size();
