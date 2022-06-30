@@ -1,3 +1,7 @@
+package parser;
+
+import entity.*;
+
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
@@ -5,16 +9,16 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 
-public final class JsParser {
+public final class JsonParser {
     private final String src;
     private int cursor;
 
-    public JsParser(String cs) {
+    public JsonParser(String cs) {
         this.src = cs;
     }
 
-    private JsNode parseValue() {
-        JsNode value;
+    private JsonNode parseValue() {
+        JsonNode value;
         skipWhitespaces();
 
         switch (src.charAt(cursor)) {
@@ -24,24 +28,25 @@ public final class JsParser {
             case '{':
                 value = parseObject();
                 break;
-            case '"':{
-                value=parseString();
-                break;}
+            case '"': {
+                value = parseString();
+                break;
+            }
             case 'n':
                 cursor += 3;
                 value = null;
                 break;
             case 't':
                 cursor += 3;
-                JsBoolean jsBooleanTrue=new JsBoolean();
-                jsBooleanTrue.setJsBoolean(TRUE);
-                  value = jsBooleanTrue;
+                JsonBoolean jsonBooleanTrue = new JsonBoolean();
+                jsonBooleanTrue.setJsonBoolean(TRUE);
+                value = jsonBooleanTrue;
                 break;
             case 'f':
                 cursor += 4;
-                JsBoolean jsBooleanFalse=new JsBoolean();
-                jsBooleanFalse.setJsBoolean(FALSE);
-                value = jsBooleanFalse;
+                JsonBoolean jsonBooleanFalse = new JsonBoolean();
+                jsonBooleanFalse.setJsonBoolean(FALSE);
+                value = jsonBooleanFalse;
                 break;
             default:
                 value = parseNumber();
@@ -57,20 +62,20 @@ public final class JsParser {
         }
     }
 
-    private JsString parseString() {
+    private JsonString parseString() {
         cursor++; // skip double quotes
         int endIdx = src.indexOf('"', cursor);
         String value = src.substring(cursor, endIdx);
         cursor = endIdx;
-         JsString jsString=new JsString();
-         jsString.setJsString(value);
-        return jsString;
+        JsonString jsonString = new JsonString();
+        jsonString.setJsonString(value);
+        return jsonString;
     }
 
-    private JsNumber parseNumber() throws NumberFormatException {
+    private JsonNumber parseNumber() throws NumberFormatException {
         boolean isInt = true;
         final int beginIdx = cursor;
-        JsNumber jsNumber=new JsNumber();
+        JsonNumber jsonNumber = new JsonNumber();
 
         for (; cursor < src.length(); cursor++) {
             char c = src.charAt(cursor);
@@ -81,32 +86,32 @@ public final class JsParser {
         int len = cursor - beginIdx;
 
         if (isInt && len < 10) {
-            jsNumber.setJsNumber(Integer.parseInt(src, beginIdx, cursor--, 10));
+            jsonNumber.setJsonNumber(Integer.parseInt(src, beginIdx, cursor--, 10));
         } else if (isInt && len < 19) {
-             jsNumber.setJsNumber(Long.parseLong(src, beginIdx, cursor--, 10));
+            jsonNumber.setJsonNumber(Long.parseLong(src, beginIdx, cursor--, 10));
         } else if (isInt) {
-            jsNumber.setJsNumber(new BigInteger(src.substring(beginIdx, cursor--)));
+            jsonNumber.setJsonNumber(new BigInteger(src.substring(beginIdx, cursor--)));
         } else if (len < 15) {
-            jsNumber.setJsNumber(Double.parseDouble(src.substring(beginIdx, cursor--)));
+            jsonNumber.setJsonNumber(Double.parseDouble(src.substring(beginIdx, cursor--)));
         } else {
-            jsNumber.setJsNumber( new BigDecimal(src.substring(beginIdx, cursor--)));
+            jsonNumber.setJsonNumber(new BigDecimal(src.substring(beginIdx, cursor--)));
         }
-        return jsNumber;
+        return jsonNumber;
     }
 
-    private JsObject parseObject() {
-        JsObject obj = null;
+    private JsonObject parseObject() {
+        JsonObject obj = null;
         String key = null;
 
         // skip an opening bracket
         for (cursor++; ; cursor++) {
             char c = src.charAt(cursor);
             if (c == '"') {
-                key = parseString().getJsString();
+                key = parseString().getJsonString();
             } else if (c == '}') {
-                return (obj == null) ? JsObject.EMPTY : obj;
+                return (obj == null) ? JsonObject.EMPTY : obj;
             } else if (c == ':') {
-                if (obj == null) obj = new JsObject();
+                if (obj == null) obj = new JsonObject();
                 cursor++;
                 obj.values.put(key, parseValue());
             }
@@ -114,17 +119,17 @@ public final class JsParser {
     }
 
 
-    private JsArray parseArray() {
-        JsArray array = null;
+    private JsonArray parseArray() {
+        JsonArray array = null;
         // skip an opening bracket
         for (cursor++; ; cursor++) {
             char c = src.charAt(cursor);
             if (c == ',' || isWhitespace(c)) continue;
 
             if (c == ']') {
-                return (array == null) ? JsArray.EMPTY : array;
+                return (array == null) ? JsonArray.EMPTY : array;
             } else {
-                if (array == null) array = new JsArray();
+                if (array == null) array = new JsonArray();
                 array.values.add(parseValue());
             }
         }
@@ -134,8 +139,8 @@ public final class JsParser {
         return c == ' ' || c == '\r' || c == '\n' || c == '\t';
     }
 
-    public static JsNode parse(String jsonContent) throws IllegalArgumentException {
-        JsParser parser = new JsParser(jsonContent);
+    public static JsonNode parse(String jsonContent) throws IllegalArgumentException {
+        JsonParser parser = new JsonParser(jsonContent);
         try {
             return parser.parseValue();
         } catch (StringIndexOutOfBoundsException e) {
@@ -143,7 +148,7 @@ public final class JsParser {
         }
     }
 
-    public static JsObject parseObject(String jsonContent) throws IllegalArgumentException {
-        return (JsObject) parse(jsonContent);
+    public static JsonObject parseObject(String jsonContent) throws IllegalArgumentException {
+        return (JsonObject) parse(jsonContent);
     }
 }
