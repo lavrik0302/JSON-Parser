@@ -4,11 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89950cf8-2be3-451b-9ea8-a56ccfe21ac4" name="Changes" comment="" />
+    <list default="true" id="14351cab-28c9-488f-b2e6-59cd53113dad" name="Changes" comment="added jsonNode class">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/jsonParser/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/jsonParser/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/JsonArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/JsonArray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/JsonBoolean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/JsonBoolean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/JsonNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/JsonNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/JsonNull.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/JsonNull.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/JsonNumber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/JsonNumber.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/JsonObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/JsonObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/JsonString.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/JsonString.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser/JsonParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/JsonParser.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -16,7 +35,10 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2BI7DrW7zVR1pPX6SQI5VUgqC1c" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2BFSugdlC0j340Rg1u6OFFx95s9" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -26,20 +48,55 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+    "last_opened_file_path": "/home/INTEXSOFT/alexey.lavrenchuk/IdeaProjects/test1/JSON-Parser"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="jsonParser" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="89950cf8-2be3-451b-9ea8-a56ccfe21ac4" name="Changes" comment="" />
-      <created>1656581633127</created>
+      <changelist id="14351cab-28c9-488f-b2e6-59cd53113dad" name="Changes" comment="" />
+      <created>1656500569016</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1656581633127</updated>
+      <updated>1656500569016</updated>
     </task>
+    <task id="LOCAL-00001" summary="added jsonNode class">
+      <created>1656506326016</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1656506326016</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added jsonNode class" />
+    <option name="LAST_COMMIT_MESSAGE" value="added jsonNode class" />
   </component>
 </project>
