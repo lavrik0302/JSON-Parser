@@ -3,7 +3,7 @@ public class Main {
 
     public static void main(String[] args) {
         JsonDeserializer test = new JsonDeserializer("");
-        System.out.println(JsonDeserializer.parse("false"));
+        System.out.println(test.parse("false"));
 
             }
 }

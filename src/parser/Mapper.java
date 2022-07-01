@@ -2,23 +2,22 @@ package parser;
 
 import model.*;
 
-import java.lang.constant.Constable;
 import java.util.*;
 import java.util.List;
 
 public class Mapper {
     public static <T> Object map(JsonNode jsonNode, Class<T> classType) {
-        if (classType == Boolean.class) {
+        if (classType.isAssignableFrom(Boolean.class)) {
             return ((JsonBoolean) jsonNode).getJsonBoolean();
-        } else if (classType == String.class) {
+        } else if (classType.isAssignableFrom(String.class)) {
             return ((JsonString) jsonNode).getJsonString();
-        } else if (classType == Number.class) {
-            Number num = ((JsonNumber) jsonNode).getJsonNumber();
-            return (Constable) num;
-        } else if (classType == List.class) {
-            List<JsonNode> jsonNodes = new ArrayList<>();
-            jsonNodes.addAll(((JsonArray) jsonNode).getValues());
+        } else if (classType.isAssignableFrom(Number.class)) {
+            return ((JsonNumber) jsonNode).getJsonNumber();
+        } else if (classType.isAssignableFrom(Collection.class)||classType.isAssignableFrom(Arrays.class)) {
+            List<JsonNode> jsonNodes = new ArrayList<>(((JsonArray) jsonNode).getValues());
             return jsonNodes;
+        } else {
+
         }
 
         return null;
@@ -41,10 +40,11 @@ public class Mapper {
         jsonNode4.add(0, jsonNode1);
         jsonNode4.add(1, jsonNode2);
         jsonNode4.add(2, jsonNode3);
-        List<JsonNode> list = (List) map(jsonNode4, List.class);
+        List<JsonNode> list = (List<JsonNode>) map(jsonNode4, Arrays.class);
         System.out.println(list.get(0));
         System.out.println(list.get(1));
         System.out.println(list.get(2));
+        System.out.println();
     }
 
 }
