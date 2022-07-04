@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="14351cab-28c9-488f-b2e6-59cd53113dad" name="Changes" comment="added jsonNode class">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/parser/Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/Mapper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,11 +36,21 @@
     </favorite-branches>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/Main.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/model/JsonArray.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/model/JsonNode.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/model/JsonNull.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/model/JsonObject.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/model/JsonString.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/parser/JsonDeserializer.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/parser/Mapper.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectId" id="2BFSugdlC0j340Rg1u6OFFx95s9" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -51,7 +62,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/INTEXSOFT/alexey.lavrenchuk/IdeaProjects/test1/JSON-Parser",
+    "last_opened_file_path": "/home/INTEXSOFT/alexey.lavrenchuk/IdeaProjects/json",
     "settings.editor.selected.configurable": "configurable.group.build"
   }
 }]]></component>
@@ -120,6 +131,11 @@
                 </map>
               </option>
             </State>
+          </value>
+        </entry>
+        <entry key="d6993d12-9a01-4abb-81f3-7b43abd1d907">
+          <value>
+            <State />
           </value>
         </entry>
       </map>
