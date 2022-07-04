@@ -5,17 +5,18 @@ import model.*;
 import java.lang.reflect.Array;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class Mapper {
 
 
-    public static <T> T[] listToArray(Class<T> tClass, List list) {
-        T[] elements=(T[]) java.lang.reflect.Array.newInstance(tClass,list.size());
-        System.out.println(elements.getClass());
-        for (int i = 0; i < list.size(); i++) {
-            elements[i]=(T) list.get(i);
-        }
+    public static <T> T[] collectionToArray(Class<T> tClass, Collection list) {
+        T[] elements = (T[]) Array.newInstance(tClass, list.size());
+        Iterator<T> iterator=list.iterator();
+           for (int i=0;i<list.size();i++){
+               elements[i]=iterator.next();
+           }
         return elements;
     }
 
@@ -41,13 +42,11 @@ public class Mapper {
                     list.set(i, map((JsonNode) list.get(i), Number.class));
                 } else if (Collection.class.isAssignableFrom(list.get(i).getClass())) {
                     list.set(i, map((JsonNode) list.get(i), Collection.class));
-                } else if (list.get(i).getClass().isAssignableFrom(Arrays.class)) {
+                } else if (list.get(i).getClass().isArray()) {
                     list.set(i, map((JsonNode) list.get(i), Arrays.class));
                 } else list.set(i, null);
             }
-            T array= (T) listToArray(list.get(0).getClass(),list);
-
-            System.out.println(array.getClass());
+            T array = (T) collectionToArray(list.get(0).getClass(), list);
 
             return array;
         }
@@ -70,17 +69,16 @@ public class Mapper {
         jsonNode4.add(2, jsonNode3);
         System.out.println(jsonNode4.values);
         JsonArray jsonNode5 = new JsonArray();
-        jsonNode5.add(0, jsonNode3);
-        jsonNode5.add(0, jsonNode3);
-        jsonNode5.add(0, jsonNode3);
-        Integer[] arr = map(jsonNode5, Integer[].class);
+        jsonNode5.add(0, jsonNode2);
+        jsonNode5.add(0, jsonNode2);
+        jsonNode5.add(0, jsonNode2);
+        String[] arr = map(jsonNode5, String[].class);
         System.out.println(arr.getClass());
         System.out.println(arr[0]);
         System.out.println(arr[1]);
         System.out.println(arr[2]);
-     //   System.out.println(arr[0].getClass());
-     //   System.out.println(arr[1].getClass());
-      //  System.out.println(arr[2].getClass());
+        System.out.println(arr[0].getClass());
+        System.out.println(arr[1].getClass());System.out.println(arr[2].getClass());
         System.out.println();
     }
 
