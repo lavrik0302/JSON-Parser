@@ -1,11 +1,11 @@
 package parser;
 
+
 import model.*;
 
 import java.lang.reflect.Array;
 import java.util.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class Mapper {
@@ -13,10 +13,10 @@ public class Mapper {
 
     public static <T> T[] collectionToArray(Class<T> tClass, Collection list) {
         T[] elements = (T[]) Array.newInstance(tClass, list.size());
-        Iterator<T> iterator=list.iterator();
-           for (int i=0;i<list.size();i++){
-               elements[i]=iterator.next();
-           }
+        Iterator<T> iterator = list.iterator();
+        for (int i = 0; i < list.size(); i++) {
+            elements[i] = iterator.next();
+        }
         return elements;
     }
 
@@ -43,7 +43,7 @@ public class Mapper {
                 } else if (Collection.class.isAssignableFrom(list.get(i).getClass())) {
                     list.set(i, map((JsonNode) list.get(i), Collection.class));
                 } else if (list.get(i).getClass().isArray()) {
-                    list.set(i, map((JsonNode) list.get(i), Arrays.class));
+                    list.set(i, map((JsonNode) list.get(i),list.get(i).getClass()));
                 } else list.set(i, null);
             }
             T array = (T) collectionToArray(list.get(0).getClass(), list);
@@ -78,7 +78,8 @@ public class Mapper {
         System.out.println(arr[1]);
         System.out.println(arr[2]);
         System.out.println(arr[0].getClass());
-        System.out.println(arr[1].getClass());System.out.println(arr[2].getClass());
+        System.out.println(arr[1].getClass());
+        System.out.println(arr[2].getClass());
         System.out.println();
     }
 
