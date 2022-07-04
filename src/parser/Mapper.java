@@ -2,11 +2,22 @@ package parser;
 
 import model.*;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.List;
 
 
 public class Mapper {
+
+
+    public static <T> T[] listToArray(Class<T> tClass, List list) {
+        T[] elements=(T[]) java.lang.reflect.Array.newInstance(tClass,list.size());
+        System.out.println(elements.getClass());
+        for (int i = 0; i < list.size(); i++) {
+            elements[i]=(T) list.get(i);
+        }
+        return elements;
+    }
 
     public static <T> T map(JsonNode jsonNode, Class<T> classType) {
         if (classType.isAssignableFrom(Boolean.class) || classType.isAssignableFrom(boolean.class)) {
@@ -27,7 +38,6 @@ public class Mapper {
                     list.set(i, map((JsonNode) list.get(i), String.class));
                 } else if
                 (list.get(i).getClass().isAssignableFrom(JsonNumber.class)) {
-                    System.out.println(1);
                     list.set(i, map((JsonNode) list.get(i), Number.class));
                 } else if (Collection.class.isAssignableFrom(list.get(i).getClass())) {
                     list.set(i, map((JsonNode) list.get(i), Collection.class));
@@ -35,8 +45,10 @@ public class Mapper {
                     list.set(i, map((JsonNode) list.get(i), Arrays.class));
                 } else list.set(i, null);
             }
-            T array = (T) list.toArray();
+            T array= (T) listToArray(list.get(0).getClass(),list);
+
             System.out.println(array.getClass());
+
             return array;
         }
         return null;
@@ -61,18 +73,14 @@ public class Mapper {
         jsonNode5.add(0, jsonNode3);
         jsonNode5.add(0, jsonNode3);
         jsonNode5.add(0, jsonNode3);
-        int[] arr = map(jsonNode5, int[].class);
+        Integer[] arr = map(jsonNode5, Integer[].class);
         System.out.println(arr.getClass());
-        int[] arr1 = new int[arr.length];
-        for (int i = 0; i < arr.length; i++) {
-            arr1[i] = (int) arr[i];
-        }
-        System.out.println(arr1[0]);
-        System.out.println(arr1[1]);
-        System.out.println(arr1[2]);
-       // System.out.println(arr[0].getClass());
-      //  System.out.println(arr[1].getClass());
-       // System.out.println(arr[2].getClass());
+        System.out.println(arr[0]);
+        System.out.println(arr[1]);
+        System.out.println(arr[2]);
+     //   System.out.println(arr[0].getClass());
+     //   System.out.println(arr[1].getClass());
+      //  System.out.println(arr[2].getClass());
         System.out.println();
     }
 
