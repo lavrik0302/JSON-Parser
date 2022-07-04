@@ -11,10 +11,10 @@ import java.util.List;
 public class Mapper {
 
 
-    public static <T> T[] collectionToArray(Class<T> tClass, Collection list) {
-        T[] elements = (T[]) Array.newInstance(tClass, list.size());
-        Iterator<T> iterator = list.iterator();
-        for (int i = 0; i < list.size(); i++) {
+    public static <T> T[] collectionToArray(Class<T> tClass, Collection collection) {
+        T[] elements = (T[]) Array.newInstance(tClass, collection.size());
+        Iterator<T> iterator = collection.iterator();
+        for (int i = 0; i < collection.size(); i++) {
             elements[i] = iterator.next();
         }
         return elements;
@@ -31,24 +31,33 @@ public class Mapper {
             List<JsonNode> jsonNodes = new ArrayList<>(((JsonArray) jsonNode).getValues());
             return (T) jsonNodes;
         } else if (classType.isArray()) {
-            List list = ((JsonArray) jsonNode).values;
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getClass().isAssignableFrom(JsonBoolean.class)) {
-                    list.set(i, map((JsonNode) list.get(i), Boolean.class));
-                } else if (list.get(i).getClass().isAssignableFrom(JsonString.class)) {
-                    list.set(i, map((JsonNode) list.get(i), String.class));
-                } else if
-                (list.get(i).getClass().isAssignableFrom(JsonNumber.class)) {
-                    list.set(i, map((JsonNode) list.get(i), Number.class));
-                } else if (Collection.class.isAssignableFrom(list.get(i).getClass())) {
-                    list.set(i, map((JsonNode) list.get(i), Collection.class));
-                } else if (list.get(i).getClass().isArray()) {
-                    list.set(i, map((JsonNode) list.get(i),list.get(i).getClass()));
-                } else list.set(i, null);
-            }
-            T array = (T) collectionToArray(list.get(0).getClass(), list);
 
-            return array;
+            List list = ((JsonArray) jsonNode).getValues();
+            if (!list.isEmpty()) {
+                List listOfJavaObjects = new ArrayList<>();
+                for (int i = 0; i < list.size(); i++) {
+                    Class nodeClass = list.get(i).getClass();
+                    JsonNode tempNode = (JsonNode) list.get(i);
+                    if (nodeClass.isAssignableFrom(JsonBoolean.class)) {
+                        listOfJavaObjects.add(i, map(tempNode, Boolean.class));
+                    } else if (nodeClass.isAssignableFrom(JsonString.class)) {
+                        listOfJavaObjects.add(i, map(tempNode, String.class));
+                    } else if
+                    (nodeClass.isAssignableFrom(JsonNumber.class)) {
+                        listOfJavaObjects.add(i, map(tempNode, Number.class));
+                    } else if (Collection.class.isAssignableFrom(nodeClass)) {
+                        listOfJavaObjects.add(i, map(tempNode, Collection.class));
+                    } else if (nodeClass.isArray()) {
+                        listOfJavaObjects.add(i, map(tempNode, nodeClass));
+                    } else listOfJavaObjects.add(i, null);
+                }
+                T array = (T) collectionToArray(listOfJavaObjects.get(0).getClass(), listOfJavaObjects);
+
+                return array;
+            } else {
+                System.out.println("Empty Array");
+                return null;
+            }
         }
         return null;
     }
@@ -73,7 +82,7 @@ public class Mapper {
         jsonNode5.add(0, jsonNode2);
         jsonNode5.add(0, jsonNode2);
         String[] arr = map(jsonNode5, String[].class);
-        System.out.println(arr.getClass());
+        //  System.out.println(arr.getClass());
         System.out.println(arr[0]);
         System.out.println(arr[1]);
         System.out.println(arr[2]);
