@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="14351cab-28c9-488f-b2e6-59cd53113dad" name="Changes" comment="added jsonNode class">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/parser/Mapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser/Mapper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
