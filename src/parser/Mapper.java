@@ -17,21 +17,19 @@ public class Mapper {
         } else if (Number.class.isAssignableFrom(classType) || classType.isAssignableFrom(JsonNumber.class)) {
             return (T) ((JsonNumber) jsonNode).getJsonNumber();
         } else if (Collection.class.isAssignableFrom(classType)) {
-            return mappingCollection(classType, jsonNode);
+            return mappingCollection(jsonNode, classType);
         } else if (classType.isArray() || classType.isAssignableFrom(JsonArray.class)) {
             return mappingArray(jsonNode, classType);
         }
         return null;
     }
 
-    private <T> T mappingCollection(Class<T> classType, JsonNode jsonNode) {
-        List<JsonNode> list = new ArrayList<>(((JsonArray) jsonNode).getValues());
-        List listOfJavaObjects = new ArrayList<>();
-        list.stream()
-                .forEach((p) -> {
-                    listOfJavaObjects.add(map(p, p.getClass()));
-                });
-
+    private <T> T mappingCollection(JsonNode jsonNode, Class<T> classType) {
+        List<Object> list = new ArrayList<>(((JsonArray) jsonNode).getValues());
+        List listOfJavaObjects =
+                list.stream()
+                        .map((p) -> (map((JsonNode) p, p.getClass())))
+                        .collect(Collectors.toList());
         Collection collection;
         if (classType.isAssignableFrom(LinkedList.class)) {
             collection = new LinkedList(listOfJavaObjects);
