@@ -6,7 +6,6 @@ import model.*;
 import java.lang.reflect.Array;
 import java.util.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class Mapper {
@@ -30,7 +29,6 @@ public class Mapper {
         } else if (Number.class.isAssignableFrom(classType)) {
             return (T) ((JsonNumber) jsonNode).getJsonNumber();
         } else if (Collection.class.isAssignableFrom(classType)) {
-            System.out.println("start");
             List<JsonNode> list = new ArrayList<>(((JsonArray) jsonNode).getValues());
             List listOfJavaObjects = new ArrayList<>();
             for (int i = 0; i < list.size(); i++) {
