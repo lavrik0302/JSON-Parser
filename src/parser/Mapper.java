@@ -5,10 +5,11 @@ import model.*;
 import utils.CollectionToArray;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class Mapper {
-    public   <T> T map(JsonNode jsonNode, Class<T> classType) {
+    public <T> T map(JsonNode jsonNode, Class<T> classType) {
         if (classType.isAssignableFrom(Boolean.class) || classType.isAssignableFrom(boolean.class)) {
             return (T) (Object) (((JsonBoolean) jsonNode).getJsonBoolean());
         } else if (classType.isAssignableFrom(String.class)) {
@@ -24,27 +25,16 @@ public class Mapper {
         return null;
     }
 
-    private  <T> T mappingCollection(Class<T> classType, JsonNode jsonNode) {
+    private <T> T mappingCollection(Class<T> classType, JsonNode jsonNode) {
         List<JsonNode> list = new ArrayList<>(((JsonArray) jsonNode).getValues());
-        System.out.println(classType);
-        java.util.List listOfJavaObjects = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++) {
-            Class nodeClass = list.get(i).getClass();
-            JsonNode tempNode = list.get(i);
-            if (nodeClass.isAssignableFrom(JsonBoolean.class)) {
-                listOfJavaObjects.add(i, map(tempNode, Boolean.class));
-            } else if (nodeClass.isAssignableFrom(JsonString.class)) {
-                listOfJavaObjects.add(i, map(tempNode, String.class));
-            } else if
-            (nodeClass.isAssignableFrom(JsonNumber.class)) {
-                listOfJavaObjects.add(i, map(tempNode, Number.class));
-            } else if (Collection.class.isAssignableFrom(nodeClass)) {
-                listOfJavaObjects.add(i, map(tempNode, Collection.class));
-            } else if (nodeClass.isArray()) {
-                listOfJavaObjects.add(i, map(tempNode, nodeClass));
-            } else listOfJavaObjects.add(i, null);
-        }
-        System.out.println(listOfJavaObjects);
+        java.util.List listOfJavaObjects;
+        listOfJavaObjects = list.stream().
+                filter((p) -> p.getClass().isAssignableFrom(JsonBoolean.class) ||
+                p.getClass().isAssignableFrom(JsonString.class) ||
+                p.getClass().isAssignableFrom(JsonNumber.class) ||
+                Collection.class.isAssignableFrom(p.getClass()) ||
+                p.getClass().isArray()).collect(Collectors.toList());
+
         Collection collection;
         if (classType.isAssignableFrom(LinkedList.class)) {
             collection = new LinkedList(listOfJavaObjects);
@@ -67,7 +57,7 @@ public class Mapper {
         return (T) collection;
     }
 
-    private  <T> T mappingArray(Class<T> classType, JsonNode jsonNode) {
+    private <T> T mappingArray(Class<T> classType, JsonNode jsonNode) {
         List list = ((JsonArray) jsonNode).getValues();
         List listOfJavaObjects = new LinkedList();
         for (int i = 0; i < list.size(); i++) {
