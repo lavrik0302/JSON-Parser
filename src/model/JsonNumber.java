@@ -1,7 +1,7 @@
 package model;
 
 public class JsonNumber extends JsonNode {
-   private Number jsonNumber;
+    private Number jsonNumber;
 
     public Number getJsonNumber() {
         return jsonNumber;

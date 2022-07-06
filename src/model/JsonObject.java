@@ -22,9 +22,9 @@ public final class JsonObject extends JsonNode {
         return values.get(key);
     }
 
-  public void add(String key, JsonNode value){
+    public void add(String key, JsonNode value) {
         values.put(key, value);
-  }
+    }
 
     public int size() {
         return values.size();
