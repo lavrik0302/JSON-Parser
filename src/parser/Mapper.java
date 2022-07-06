@@ -4,11 +4,16 @@ package parser;
 import model.*;
 import utils.CollectionToArray;
 
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 
 
 public class Mapper {
+    private JsonObject javaObject;
+    private JsonObject javaObject1;
+    private JsonObject javaObject11;
+
     public <T> T map(JsonNode jsonNode, Class<T> classType) {
         if (classType.isAssignableFrom(Boolean.class) || classType.isAssignableFrom(boolean.class) || classType.isAssignableFrom(JsonBoolean.class)) {
             return (T) (Object) (((JsonBoolean) jsonNode).getJsonBoolean());
@@ -22,6 +27,32 @@ public class Mapper {
             return mappingArray(jsonNode, classType);
         } else if (classType.isAssignableFrom(JsonNull.class)) {
             return null;
+        } else if (classType.isAssignableFrom(JsonObject.class) || classType.isAssignableFrom(Object.class) || classType.isAssignableFrom(classType)) {
+            T some = null;
+            try {
+                some = classType.newInstance();
+            } catch (InstantiationException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+            Field[] fields = some.getClass().getDeclaredFields();
+            Field field;
+            Set<String> keys = ((JsonObject) jsonNode).values.keySet();
+            Iterator keysIterator = keys.iterator();
+            for (int i = 0; i < fields.length; i++) {
+                try {
+                    String currKey = (String) keysIterator.next();
+                    field = some.getClass().getDeclaredField(currKey);
+                    field.set(some, map(((JsonObject) jsonNode).get(currKey), ((JsonObject) jsonNode).get(currKey).getClass()));
+
+                } catch (NoSuchFieldException e) {
+                    throw new RuntimeException(e);
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            return some;
         }
         return null;
     }

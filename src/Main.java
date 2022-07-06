@@ -1,6 +1,7 @@
 import model.*;
 import parser.JsonDeserializer;
 import parser.Mapper;
+import parser.User;
 
 import java.util.LinkedList;
 
@@ -14,10 +15,10 @@ public class Main {
         jsonNode1.setJsonBoolean(true);
         // System.out.println(jsonNode1);
         JsonString jsonNode2 = new JsonString();
-        jsonNode2.setJsonString("some text for test");
+        jsonNode2.setJsonString("Alexey");
         // System.out.println(jsonNode2);
         JsonNumber jsonNode3 = new JsonNumber();
-        jsonNode3.setJsonNumber((int) 12.12);
+        jsonNode3.setJsonNumber((int) 20.4);
         JsonNull jsonNode6 = new JsonNull();
         //System.out.println(jsonNode3);
         JsonArray jsonNode4 = new JsonArray();
@@ -31,9 +32,10 @@ public class Main {
         jsonNode5.add(2, jsonNode3);
         jsonNode5.add(3, jsonNode4);
         jsonNode5.add(4, jsonNode6);
+
         System.out.println(jsonNode5);
         LinkedList arr = mapper.map(jsonNode5, LinkedList.class);
-        //System.out.println(arr);
+        // System.out.println(arr);
         //System.out.println(arr.getClass());
         // System.out.println(arr[0]);
         System.out.println(arr.get(1));
@@ -44,6 +46,16 @@ public class Main {
         //   System.out.println(arr.get(1).getClass());
         //    System.out.println(arr.get(2).getClass());
         //  System.out.println(arr.get(3).getClass());
-        System.out.println();
+        System.out.println("-----------");
+        User user =new User();
+         JsonObject jsonNode7=new JsonObject();
+         jsonNode7.values.put("name",jsonNode2);
+         jsonNode7.values.put("age",jsonNode3);
+         jsonNode7.values.put("ableToWork",jsonNode1);
+        user=mapper.map(jsonNode7,User.class);
+        System.out.println(user.getName());
+        System.out.println(user.getAge());
+       System.out.println(user.getAbleToWork());
+
     }
 }
