@@ -20,13 +20,12 @@ public class Main {
         jsonNode3.setJsonNumber((int) 12.12);
         JsonNull jsonNode6 = new JsonNull();
         jsonNode6.setJsonNull(null);
-        System.out.println(jsonNode6.getJsonNull());
         //System.out.println(jsonNode3);
         JsonArray jsonNode4 = new JsonArray();
         //jsonNode4.add(0, jsonNode6);
-       // jsonNode4.add(1, jsonNode6);
+        // jsonNode4.add(1, jsonNode6);
         //jsonNode4.add(2, jsonNode6);
-       // System.out.println(jsonNode4);
+        // System.out.println(jsonNode4);
         JsonArray jsonNode5 = new JsonArray();
         jsonNode5.add(0, jsonNode1);
         jsonNode5.add(1, jsonNode2);
@@ -42,7 +41,6 @@ public class Main {
         System.out.println(arr.get(2));
         System.out.println(arr.get(3));
         System.out.println(arr.get(4));
-
         //  System.out.println(arr.get(0).getClass());
         //   System.out.println(arr.get(1).getClass());
         //    System.out.println(arr.get(2).getClass());
