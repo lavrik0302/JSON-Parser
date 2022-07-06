@@ -23,10 +23,10 @@ public class Main {
         System.out.println(jsonNode6.getJsonNull());
         //System.out.println(jsonNode3);
         JsonArray jsonNode4 = new JsonArray();
-        jsonNode4.add(0, jsonNode6);
-        jsonNode4.add(1, jsonNode6);
-        jsonNode4.add(2, jsonNode6);
-        System.out.println(jsonNode4);
+        //jsonNode4.add(0, jsonNode6);
+       // jsonNode4.add(1, jsonNode6);
+        //jsonNode4.add(2, jsonNode6);
+       // System.out.println(jsonNode4);
         JsonArray jsonNode5 = new JsonArray();
         jsonNode5.add(0, jsonNode1);
         jsonNode5.add(1, jsonNode2);

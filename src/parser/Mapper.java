@@ -64,7 +64,7 @@ public class Mapper {
         T array;
         try {
             array = (T) CollectionToArray.collectionToArray(listOfJavaObjects.get(0).getClass(), listOfJavaObjects);
-        } catch (ArrayStoreException | NullPointerException e) {
+        } catch (ArrayStoreException | NullPointerException | IndexOutOfBoundsException e) {
             array = (T) CollectionToArray.collectionToArray(Object.class, listOfJavaObjects);
         }
         return array;
