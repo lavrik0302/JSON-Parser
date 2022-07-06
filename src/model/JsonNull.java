@@ -7,10 +7,6 @@ public class JsonNull extends JsonNode {
         return jsonNull;
     }
 
-    public void setJsonNull(Object jsonNull) {
-        this.jsonNull = jsonNull;
-    }
-
     @Override
     public String toString() {
         return "null";

@@ -19,7 +19,7 @@ public class Main {
         JsonNumber jsonNode3 = new JsonNumber();
         jsonNode3.setJsonNumber((int) 12.12);
         JsonNull jsonNode6 = new JsonNull();
-        jsonNode6.setJsonNull(null);
+
         //System.out.println(jsonNode3);
         JsonArray jsonNode4 = new JsonArray();
         //jsonNode4.add(0, jsonNode6);
