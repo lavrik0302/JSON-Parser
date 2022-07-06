@@ -1,7 +1,7 @@
 package model;
 
 public class JsonString extends JsonNode {
-   private String jsonString;
+    private String jsonString;
 
     public String getJsonString() {
         return jsonString;

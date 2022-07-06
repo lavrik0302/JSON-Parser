@@ -9,11 +9,11 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 
-public final class JsonParser {
+public final class JsonDeserializer {
     private final String src;
     private int cursor;
 
-    public JsonParser(String cs) {
+    public JsonDeserializer(String cs) {
         this.src = cs;
     }
 
@@ -140,7 +140,7 @@ public final class JsonParser {
     }
 
     public static JsonNode parse(String jsonContent) throws IllegalArgumentException {
-        JsonParser parser = new JsonParser(jsonContent);
+        JsonDeserializer parser = new JsonDeserializer(jsonContent);
         try {
             return parser.parseValue();
         } catch (StringIndexOutOfBoundsException e) {
