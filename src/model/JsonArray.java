@@ -21,6 +21,7 @@ public final class JsonArray extends JsonNode implements Iterable<JsonNode> {
     public void add(int index, JsonNode value) {
         values.add(index, value);
     }
+    public void add(JsonNode value){values.add(value);}
 
     public List<JsonNode> getValues() {
         return values;

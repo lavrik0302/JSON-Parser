@@ -3,9 +3,7 @@ package parser;
 public class Adress {
     private String street;
    private Integer houseNumber;
-
-
-    public void setHouseNumber(int houseNumber) {
+    public void setHouseNumber(Integer houseNumber) {
         this.houseNumber = houseNumber;
     }
 

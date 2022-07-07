@@ -58,7 +58,6 @@ public class Mapper {
         return null;
     }
 
-
     private <T> T mappingCollection(JsonNode jsonNode, Class<T> classType) {
         List<Object> list = new ArrayList<>(((JsonArray) jsonNode).getValues());
         List listOfJavaObjects =

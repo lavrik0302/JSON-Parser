@@ -6,12 +6,15 @@ public class User {
     private Adress adress;
     private Integer age;
 
+    public void setAdress(Adress adress) {
+        this.adress = adress;
+    }
 
     public Adress getAdress() {
         return adress;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
@@ -27,7 +30,7 @@ public class User {
         this.ableToWork = ableToWork;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
