@@ -1,13 +1,17 @@
 import model.*;
+import parser.Adress;
 import parser.JsonDeserializer;
 import parser.Mapper;
 import parser.User;
+import utils.exceptions.IllegalAccessInMappingObjectExcetion;
+import utils.exceptions.InstantiationExceptionInMappingObject;
+import utils.exceptions.NoFieldInMappingObjectException;
 
 import java.util.LinkedList;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoFieldInMappingObjectException, IllegalAccessInMappingObjectExcetion, InstantiationExceptionInMappingObject {
         Mapper mapper = new Mapper();
         JsonDeserializer test = new JsonDeserializer("");
         //  System.out.println(test.parse("false"));
@@ -47,15 +51,26 @@ public class Main {
         //    System.out.println(arr.get(2).getClass());
         //  System.out.println(arr.get(3).getClass());
         System.out.println("-----------");
-        User user =new User();
-         JsonObject jsonNode7=new JsonObject();
-         jsonNode7.values.put("name",jsonNode2);
-         jsonNode7.values.put("age",jsonNode3);
-         jsonNode7.values.put("ableToWork",jsonNode1);
-        user=mapper.map(jsonNode7,User.class);
+        User user = new User();
+        JsonString jsonStreet = new JsonString();
+        jsonStreet.setJsonString("Lenina");
+        JsonNumber jsonHouseNumber = new JsonNumber();
+        jsonHouseNumber.setJsonNumber(12);
+        JsonObject jsonAdress = new JsonObject();
+        jsonAdress.values.put("street", jsonStreet);
+        jsonAdress.values.put("houseNumber", jsonHouseNumber);
+
+        JsonObject jsonNode7 = new JsonObject();
+        jsonNode7.values.put("ableToWork", jsonNode1);
+        jsonNode7.values.put("name", jsonNode2);
+        jsonNode7.values.put("adress", jsonAdress);
+        jsonNode7.values.put("age", jsonNode3);
+
+        user = mapper.map(jsonNode7, User.class);
         System.out.println(user.getName());
         System.out.println(user.getAge());
-       System.out.println(user.getAbleToWork());
-
+        System.out.println(user.getAbleToWork());
+         System.out.println(user.getAdress().getStreet());
+         System.out.println(user.getAdress().getHouseNumber());
     }
 }

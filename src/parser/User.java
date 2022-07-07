@@ -1,9 +1,15 @@
 package parser;
 
 public class User {
+    Boolean ableToWork;
     String name;
-     int age;
-     Boolean ableToWork;
+    Adress adress;
+    int age;
+
+
+    public Adress getAdress() {
+        return adress;
+    }
 
     public int getAge() {
         return age;
