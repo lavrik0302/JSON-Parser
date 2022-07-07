@@ -2,15 +2,12 @@ import model.*;
 import parser.JsonDeserializer;
 import parser.Mapper;
 import parser.User;
-import utils.exceptions.AccessException;
-import utils.exceptions.NewInstanceException;
-import utils.exceptions.NoFieldException;
 
 import java.util.LinkedList;
 
 public class Main {
 
-    public static void main(String[] args) throws NoFieldException, AccessException, NewInstanceException {
+    public static void main(String[] args) {
         Mapper mapper = new Mapper();
         JsonDeserializer test = new JsonDeserializer("");
         //  System.out.println(test.parse("false"));
@@ -69,7 +66,7 @@ public class Main {
         System.out.println(user.getName());
         System.out.println(user.getAge());
         System.out.println(user.getAbleToWork());
-         System.out.println(user.getAdress().getStreet());
-         System.out.println(user.getAdress().getHouseNumber());
+        System.out.println(user.getAdress().getStreet());
+        System.out.println(user.getAdress().getHouseNumber());
     }
 }

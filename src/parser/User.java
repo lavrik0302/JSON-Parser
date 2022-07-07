@@ -1,8 +1,8 @@
 package parser;
 
 public class User {
-   private Boolean ableToWork;
-   private String name;
+    private Boolean ableToWork;
+    private String name;
     private Adress adress;
     private Integer age;
 
