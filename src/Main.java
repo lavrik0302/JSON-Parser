@@ -1,17 +1,16 @@
 import model.*;
-import parser.Adress;
 import parser.JsonDeserializer;
 import parser.Mapper;
 import parser.User;
-import utils.exceptions.IllegalAccessInMappingObjectExcetion;
-import utils.exceptions.InstantiationExceptionInMappingObject;
-import utils.exceptions.NoFieldInMappingObjectException;
+import utils.exceptions.AccessException;
+import utils.exceptions.NewInstanceException;
+import utils.exceptions.NoFieldException;
 
 import java.util.LinkedList;
 
 public class Main {
 
-    public static void main(String[] args) throws NoFieldInMappingObjectException, IllegalAccessInMappingObjectExcetion, InstantiationExceptionInMappingObject {
+    public static void main(String[] args) throws NoFieldException, AccessException, NewInstanceException {
         Mapper mapper = new Mapper();
         JsonDeserializer test = new JsonDeserializer("");
         //  System.out.println(test.parse("false"));

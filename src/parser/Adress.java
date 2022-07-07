@@ -1,8 +1,8 @@
 package parser;
 
 public class Adress {
-    String street;
-    int houseNumber;
+    private String street;
+   private Integer houseNumber;
 
 
     public void setHouseNumber(int houseNumber) {

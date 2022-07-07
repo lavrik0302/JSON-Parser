@@ -2,14 +2,14 @@ package utils.exceptions;
 
 import java.lang.reflect.Field;
 
-public class NoFieldInMappingObjectException extends NoSuchFieldException {
+public class NoFieldException extends RuntimeException {
     private Field field;
 
     public Field getField() {
         return field;
     }
 
-    public NoFieldInMappingObjectException(String message, Field field) {
+    public NoFieldException(String message, Field field) {
         System.out.println(message + field);
     }
 }

@@ -1,10 +1,10 @@
 package parser;
 
 public class User {
-    Boolean ableToWork;
-    String name;
-    Adress adress;
-    int age;
+   private Boolean ableToWork;
+   private String name;
+    private Adress adress;
+    private Integer age;
 
 
     public Adress getAdress() {

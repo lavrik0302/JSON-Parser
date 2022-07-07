@@ -3,9 +3,9 @@ package parser;
 
 import model.*;
 import utils.CollectionToArray;
-import utils.exceptions.IllegalAccessInMappingObjectExcetion;
-import utils.exceptions.InstantiationExceptionInMappingObject;
-import utils.exceptions.NoFieldInMappingObjectException;
+import utils.exceptions.AccessException;
+import utils.exceptions.NewInstanceException;
+import utils.exceptions.NoFieldException;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
 
 public class Mapper {
 
-    public <T> T map(JsonNode jsonNode, Class<T> classType) throws NoFieldInMappingObjectException, IllegalAccessInMappingObjectExcetion, InstantiationExceptionInMappingObject {
+    public <T> T map(JsonNode jsonNode, Class<T> classType) throws NoFieldException, AccessException, NewInstanceException {
         if (classType.isAssignableFrom(Boolean.class) || classType.isAssignableFrom(boolean.class) || classType.isAssignableFrom(JsonBoolean.class)) {
             return (T) (Object) (((JsonBoolean) jsonNode).getJsonBoolean());
         } else if (classType.isAssignableFrom(String.class) || classType.isAssignableFrom(JsonString.class)) {
             return (T) ((JsonString) jsonNode).getJsonString();
-        } else if (Number.class.isAssignableFrom(classType) || classType.isAssignableFrom(JsonNumber.class) || classType.isAssignableFrom(int.class)) {
+        } else if (Number.class.isAssignableFrom(classType) || classType.isAssignableFrom(JsonNumber.class)) {
             return (T) ((JsonNumber) jsonNode).getJsonNumber();
         } else if (Collection.class.isAssignableFrom(classType)) {
             return mappingCollection(jsonNode, classType);
@@ -34,9 +34,9 @@ public class Mapper {
                 some = classType.newInstance();
                 System.out.println("after new instance" + some.getClass());
             } catch (InstantiationException e) {
-                throw new InstantiationExceptionInMappingObject("Can't create new instance of ", classType);
+                throw new NewInstanceException("Can't create a new instance of ", classType);
             } catch (IllegalAccessException e) {
-                throw new IllegalAccessInMappingObjectExcetion("Illegal access");
+                throw new AccessException("Illegal access");
             }
 
             Field[] fields = some.getClass().getDeclaredFields();
@@ -49,15 +49,16 @@ public class Mapper {
                 try {
                     String currKey = (String) keysIterator.next();
                     field = some.getClass().getDeclaredField(currKey);
+                    field.setAccessible(true);
                     System.out.println("Текущее поле " + field);
                     System.out.println("Текущий ключ карты " + currKey);
                     System.out.println("Тип поля " + fields[i].getGenericType());
                     field.set(some, map(((JsonObject) jsonNode).get(currKey), (Class<T>) fields[i].getGenericType()));
-
+                    field.setAccessible(false);
                 } catch (NoSuchFieldException e) {
-                    throw new NoFieldInMappingObjectException("No such field ", fields[i]);
+                    throw new NoFieldException("No such field ", fields[i]);
                 } catch (IllegalAccessException e) {
-                    throw new IllegalAccessInMappingObjectExcetion("Illegal access");
+                    throw new AccessException("Illegal access");
                 }
             }
 
@@ -73,8 +74,8 @@ public class Mapper {
                         .map((p) -> {
                             try {
                                 return map((JsonNode) p, p.getClass());
-                            } catch (NoFieldInMappingObjectException | IllegalAccessInMappingObjectExcetion |
-                                     InstantiationExceptionInMappingObject e) {
+                            } catch (NoFieldException | AccessException |
+                                     NewInstanceException e) {
                                 throw new RuntimeException(e);
                             }
                         })
@@ -108,8 +109,8 @@ public class Mapper {
                         .map((p) -> {
                             try {
                                 return map((JsonNode) p, p.getClass());
-                            } catch (NoFieldInMappingObjectException | IllegalAccessInMappingObjectExcetion |
-                                     InstantiationExceptionInMappingObject e) {
+                            } catch (NoFieldException | AccessException |
+                                     NewInstanceException e) {
                                 throw new RuntimeException(e);
                             }
                         })
