@@ -16,7 +16,7 @@ public class Mapper {
     public <T> T map(JsonNode jsonNode, Class<T> classType) {
         if (classType.isAssignableFrom(Boolean.class) || classType.isAssignableFrom(boolean.class) || classType.isAssignableFrom(JsonBoolean.class)) {
             return (T) (Object) (((JsonBoolean) jsonNode).getJsonBoolean());
-        } else if (classType.isAssignableFrom(String.class) || classType.isAssignableFrom(JsonString.class)||classType.isAssignableFrom(Adress.City.class)) {
+        } else if (classType.isAssignableFrom(String.class) || classType.isAssignableFrom(JsonString.class)||Enum.class.isAssignableFrom(classType)) {
             return (T) ((JsonString) jsonNode).getJsonString();
         } else if (Number.class.isAssignableFrom(classType) || classType.isAssignableFrom(JsonNumber.class)) {
             return (T) ((JsonNumber) jsonNode).getJsonNumber();
@@ -26,9 +26,7 @@ public class Mapper {
             return mappingArray(jsonNode, classType);
         } else if (classType.isAssignableFrom(JsonNull.class)) {
             return null;
-        } else if (classType.isAssignableFrom(Enum.class)) {
-        return (T) ((JsonString)jsonNode).getJsonString();
-        } else if (classType.isAssignableFrom(JsonObject.class) || classType.isAssignableFrom(classType)) {
+        }  else if (classType.isAssignableFrom(JsonObject.class) || classType.isAssignableFrom(classType)) {
             System.out.println("Mapping Object");
             T some = null;
             try {
@@ -60,7 +58,7 @@ public class Mapper {
                                 break;
                             }
                             if (!flag){
-                                throw new NoSuchEnumValue(field,"No such Enum value\nList of possible enum values");
+                                throw new NoSuchEnumValue(field,"--------\nNo such Enum value\nList of possible enum values");
                             }
                         }
                     }
