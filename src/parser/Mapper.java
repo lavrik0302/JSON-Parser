@@ -4,6 +4,7 @@ package parser;
 import model.*;
 import utils.CollectionToArray;
 import utils.exceptions.MappingObjectException;
+import utils.exceptions.NoSuchEnumValue;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -15,7 +16,7 @@ public class Mapper {
     public <T> T map(JsonNode jsonNode, Class<T> classType) {
         if (classType.isAssignableFrom(Boolean.class) || classType.isAssignableFrom(boolean.class) || classType.isAssignableFrom(JsonBoolean.class)) {
             return (T) (Object) (((JsonBoolean) jsonNode).getJsonBoolean());
-        } else if (classType.isAssignableFrom(String.class) || classType.isAssignableFrom(JsonString.class)) {
+        } else if (classType.isAssignableFrom(String.class) || classType.isAssignableFrom(JsonString.class)||classType.isAssignableFrom(Adress.City.class)) {
             return (T) ((JsonString) jsonNode).getJsonString();
         } else if (Number.class.isAssignableFrom(classType) || classType.isAssignableFrom(JsonNumber.class)) {
             return (T) ((JsonNumber) jsonNode).getJsonNumber();
@@ -25,7 +26,10 @@ public class Mapper {
             return mappingArray(jsonNode, classType);
         } else if (classType.isAssignableFrom(JsonNull.class)) {
             return null;
+        } else if (classType.isAssignableFrom(Enum.class)) {
+        return (T) ((JsonString)jsonNode).getJsonString();
         } else if (classType.isAssignableFrom(JsonObject.class) || classType.isAssignableFrom(classType)) {
+            System.out.println("Mapping Object");
             T some = null;
             try {
                 some = classType.newInstance();
@@ -36,7 +40,6 @@ public class Mapper {
             Field[] fields = some.getClass().getDeclaredFields();
             Field field;
             Set<String> keys = ((JsonObject) jsonNode).values.keySet();
-            System.out.println("keys of map " + keys);
 
             Iterator keysIterator = keys.iterator();
             for (int i = 0; i < fields.length; i++) {
@@ -44,10 +47,23 @@ public class Mapper {
                     String currKey = (String) keysIterator.next();
                     field = some.getClass().getDeclaredField(currKey);
                     field.setAccessible(true);
-                    System.out.println("Текущее поле " + field);
-                    System.out.println("Текущий ключ карты " + currKey);
-                    System.out.println("Тип поля " + fields[i].getGenericType());
-                    field.set(some, map(((JsonObject) jsonNode).get(currKey), (Class<T>) fields[i].getGenericType()));
+                    try {
+                        field.set(some, map(((JsonObject) jsonNode).get(currKey), (Class<T>) field.getGenericType()));
+                    }catch (IllegalArgumentException |ClassCastException e){
+                        Object arr[]= field.getType().getEnumConstants();
+                        String enumValue =String.valueOf(((JsonObject) jsonNode).values.get(field.getType().getSimpleName().toLowerCase()));
+                        for (int j =0;j<arr.length;j++){
+                            boolean flag=false;
+                            if (arr[j].toString().equals(enumValue)){
+                                field.set(some,arr[j]);
+                                flag=true;
+                                break;
+                            }
+                            if (!flag){
+                                throw new NoSuchEnumValue(field,"No such Enum value\nList of possible enum values");
+                            }
+                        }
+                    }
                     field.setAccessible(false);
                 } catch (NoSuchFieldException | IllegalAccessException e) {
                     throw new MappingObjectException(e, " Mapping object exception ", classType);
