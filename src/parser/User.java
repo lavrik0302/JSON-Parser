@@ -3,16 +3,25 @@ package parser;
 public class User {
     private Boolean ableToWork;
     private String name;
-   private Adress adress;
+    private Adress adress;
     private Integer age;
+    private String[] languages;
 
-  public void setAdress(Adress adress) {
+    public void setLanguages(String[] languages) {
+        this.languages = languages;
+    }
+
+    public String[] getLanguages() {
+        return languages;
+    }
+
+    public void setAdress(Adress adress) {
         this.adress = adress;
-   }
+    }
 
     public Adress getAdress() {
-       return adress;
-   }
+        return adress;
+    }
 
     public Integer getAge() {
         return age;

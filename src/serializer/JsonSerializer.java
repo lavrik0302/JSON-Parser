@@ -54,8 +54,21 @@ public class JsonSerializer {
     }
 
     public String serialize(Object javaObject) {
-        JsonNode jsonNode = javaObjectToJsonNode(javaObject);
 
-        return jsonNode.toString();
+        JsonNode jsonNode = javaObjectToJsonNode(javaObject);
+        if (jsonNode.getClass().isAssignableFrom(JsonNull.class)) {
+            return ((JsonNull) jsonNode).toString();
+        } else if (jsonNode.getClass().isAssignableFrom(JsonBoolean.class)) {
+            return ((JsonBoolean) jsonNode).toString();
+        } else if (jsonNode.getClass().isAssignableFrom(JsonString.class)) {
+            return ((JsonString) jsonNode).toString();
+        } else if (jsonNode.getClass().isAssignableFrom(JsonNumber.class)) {
+            return ((JsonNumber) jsonNode).toString();
+        } else if (jsonNode.getClass().isAssignableFrom(JsonArray.class)) {
+            return ((JsonArray) jsonNode).toString();
+        } else if (jsonNode.getClass().isAssignableFrom(JsonObject.class)) {
+            return ((JsonObject) jsonNode).toString();
+        }
+        return null;
     }
 }
