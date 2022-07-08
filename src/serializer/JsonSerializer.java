@@ -10,7 +10,6 @@ import java.util.List;
 
 public class JsonSerializer {
     public JsonNode javaObjectToJsonNode(Object javaObject) {
-        // System.out.println(javaObject.getClass());
         if (javaObject == null) {
             JsonNull jsonNull = new JsonNull();
             return jsonNull;

@@ -49,11 +49,14 @@ public final class JsonDeserializer {
                 jsonBooleanFalse.setJsonBoolean(FALSE);
                 value = jsonBooleanFalse;
                 break;
-            default:
+            default:try {
                 value = parseNumber();
                 break;
+            }catch (NumberFormatException e){
+                value=parseString();
+                break;
+            }
         }
-
         return value;
     }
 

@@ -1,19 +1,15 @@
 package parser;
 
-public class User {
+import model.JsonObject;
+
+public class User extends JsonObject {
     private Boolean ableToWork;
     private String name;
     private Adress adress;
     private Integer age;
-    private String[] languages;
 
-    public void setLanguages(String[] languages) {
-        this.languages = languages;
-    }
 
-    public String[] getLanguages() {
-        return languages;
-    }
+
 
     public void setAdress(Adress adress) {
         this.adress = adress;

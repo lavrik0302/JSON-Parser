@@ -1,6 +1,5 @@
 package parser;
 
-
 import model.*;
 import utils.CollectionToArray;
 import utils.exceptions.MappingObjectException;
@@ -16,7 +15,7 @@ public class Mapper {
     public <T> T map(JsonNode jsonNode, Class<T> classType) {
         if (classType.isAssignableFrom(Boolean.class) || classType.isAssignableFrom(boolean.class) || classType.isAssignableFrom(JsonBoolean.class)) {
             return (T) (Object) (((JsonBoolean) jsonNode).getJsonBoolean());
-        } else if (classType.isAssignableFrom(String.class) || classType.isAssignableFrom(JsonString.class)||Enum.class.isAssignableFrom(classType)) {
+        } else if (classType.isAssignableFrom(String.class) || classType.isAssignableFrom(JsonString.class) || Enum.class.isAssignableFrom(classType)) {
             return (T) ((JsonString) jsonNode).getJsonString();
         } else if (Number.class.isAssignableFrom(classType) || classType.isAssignableFrom(JsonNumber.class)) {
             return (T) ((JsonNumber) jsonNode).getJsonNumber();
@@ -26,7 +25,7 @@ public class Mapper {
             return mappingArray(jsonNode, classType);
         } else if (classType.isAssignableFrom(JsonNull.class)) {
             return null;
-        }  else if (classType.isAssignableFrom(JsonObject.class) || classType.isAssignableFrom(classType)) {
+        } else if (classType.isAssignableFrom(JsonObject.class) || classType.isAssignableFrom(classType)) {
             System.out.println("Mapping Object");
             T some = null;
             try {
@@ -38,8 +37,8 @@ public class Mapper {
             Field[] fields = some.getClass().getDeclaredFields();
             Field field;
             Set<String> keys = ((JsonObject) jsonNode).values.keySet();
-
             Iterator keysIterator = keys.iterator();
+
             for (int i = 0; i < fields.length; i++) {
                 try {
                     String currKey = (String) keysIterator.next();
@@ -47,19 +46,24 @@ public class Mapper {
                     field.setAccessible(true);
                     try {
                         field.set(some, map(((JsonObject) jsonNode).get(currKey), (Class<T>) field.getGenericType()));
-                    }catch (IllegalArgumentException |ClassCastException e){
-                        Object arr[]= field.getType().getEnumConstants();
-                        String enumValue =String.valueOf(((JsonObject) jsonNode).values.get(field.getType().getSimpleName().toLowerCase()));
-                        for (int j =0;j<arr.length;j++){
-                            boolean flag=false;
-                            if (arr[j].toString().equals(enumValue)){
-                                field.set(some,arr[j]);
-                                flag=true;
+
+                    } catch (IllegalArgumentException | ClassCastException e) {
+
+                        Object arr[] = field.getType().getEnumConstants();
+                        String enumValue = String.valueOf(((JsonObject) jsonNode).values.get(field.getType().getSimpleName().toLowerCase()));
+                        boolean flag = false;
+                        for (int j = 0; j < arr.length; j++) {
+                            if (arr[j].toString().equals(enumValue)) {
+                                field.set(some, arr[j]);
+                                flag = true;
                                 break;
+
                             }
-                            if (!flag){
-                                throw new NoSuchEnumValue(field,"--------\nNo such Enum value\nList of possible enum values");
-                            }
+
+                        }
+                        if (!flag) {
+
+                            throw new NoSuchEnumValue(field, "--------\nNo such Enum value\nList of possible enum values");
                         }
                     }
                     field.setAccessible(false);
@@ -67,7 +71,7 @@ public class Mapper {
                     throw new MappingObjectException(e, " Mapping object exception ", classType);
                 }
             }
-            return some;
+            return (T) some;
         }
         return null;
     }
