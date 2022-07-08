@@ -7,19 +7,19 @@ public class Adress {
    private City city;
     public enum City{
         Grodno,
-        Minsk,
-        Vitebsk,
-        Gomel,
+       Minsk,
+      Vitebsk,
+       Gomel,
         Mogilev,
         Brest
-    }
+           }
 
-    public void setCity(City city) {
+   public void setCity(City city) {
         this.city = city;
     }
 
     public City getCity() {
-        return city;
+       return city;
     }
 
     public void setHouseNumber(Integer houseNumber) {
