@@ -1,9 +1,10 @@
-import lombok.Value;
-import parser.Adress;
-import parser.JsonDeserializer;
-import parser.Mapper;
-import parser.User;
-import serializer.JsonSerializer;
+package com.intexsoft;
+
+import com.intexsoft.parser.Adress;
+import com.intexsoft.parser.JsonDeserializer;
+import com.intexsoft.parser.Mapper;
+import com.intexsoft.parser.User;
+import com.intexsoft.serializer.JsonSerializer;
 
 public class Main {
 

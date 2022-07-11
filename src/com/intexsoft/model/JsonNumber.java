@@ -1,4 +1,4 @@
-package model;
+package com.intexsoft.model;
 
 import lombok.Data;
 

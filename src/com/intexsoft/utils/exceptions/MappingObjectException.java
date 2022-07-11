@@ -1,6 +1,4 @@
-package utils.exceptions;
-
-
+package com.intexsoft.utils.exceptions;
 
 public class MappingObjectException extends RuntimeException {
 
