@@ -14,8 +14,8 @@ public class Main {
         User user = new User();
         Adress adress = new Adress();
         adress.setHouseNumber(12);
-        adress.setStreet("Lenina");
         adress.setCity(Adress.City.Grodno);
+        adress.setStreet("Lenina");
         user.setAge(25);
         user.setName("Alexey");
         user.setAbleToWork(true);
@@ -24,7 +24,7 @@ public class Main {
         Number number = 12;
         Boolean bool = true;
         Object nulll = null;
-        Object arr[] = {string, bool, number, nulll};
+        Object[] arr = {string, bool, number, nulll};
         System.out.println(jsonSerializer.serialize(string));
         System.out.println(jsonSerializer.serialize(number));
         System.out.println(jsonSerializer.serialize(bool));

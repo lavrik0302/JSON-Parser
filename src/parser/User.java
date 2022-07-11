@@ -1,45 +1,32 @@
 package parser;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
 import model.JsonObject;
 
+@Data
 public class User extends JsonObject {
+    @NonNull
+    @Getter
+    @Setter
     private Boolean ableToWork;
+    @NonNull
+    @Getter
+    @Setter
     private String name;
+    @NonNull
+    @Getter
+    @Setter
     private Adress adress;
+    @Getter
+    @Setter
+    @NonNull
     private Integer age;
 
+    public User() {
 
-
-
-    public void setAdress(Adress adress) {
-        this.adress = adress;
     }
 
-    public Adress getAdress() {
-        return adress;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public Boolean getAbleToWork() {
-        return ableToWork;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setAbleToWork(Boolean ableToWork) {
-        this.ableToWork = ableToWork;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
