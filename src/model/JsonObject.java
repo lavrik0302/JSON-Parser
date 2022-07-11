@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.StringJoiner;
 import java.util.function.BiConsumer;
 
-public final class JsonObject extends JsonNode {
+public class JsonObject extends JsonNode {
     public static final JsonObject EMPTY = new JsonObject(Collections.emptyMap());
     public final Map<String, JsonNode> values;
 

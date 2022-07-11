@@ -13,6 +13,6 @@ public class JsonString extends JsonNode {
 
     @Override
     public String toString() {
-        return jsonString;
+        return "\"" + jsonString + "\"";
     }
 }

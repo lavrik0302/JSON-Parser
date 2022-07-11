@@ -1,6 +1,7 @@
 package parser;
 
 import model.*;
+import utils.exceptions.InvalidJsonException;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
@@ -48,11 +49,14 @@ public final class JsonDeserializer {
                 jsonBooleanFalse.setJsonBoolean(FALSE);
                 value = jsonBooleanFalse;
                 break;
-            default:
+            default:try {
                 value = parseNumber();
                 break;
+            }catch (NumberFormatException e){
+                value=parseString();
+                break;
+            }
         }
-
         return value;
     }
 
@@ -144,7 +148,7 @@ public final class JsonDeserializer {
         try {
             return parser.parseValue();
         } catch (StringIndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("Wrong JSON at position: " + parser.cursor);
+            throw new InvalidJsonException("Wrong JSON at position: ", parser.cursor);
         }
     }
 
