@@ -39,7 +39,7 @@ public class Mapper {
             Set<String> keys = ((JsonObject) jsonNode).values.keySet();
             Iterator keysIterator = keys.iterator();
 
-            for (int i = 0; i < fields.length; i++) {
+            for (Field field1:fields) {
                 try {
                     String currKey = (String) keysIterator.next();
                     field = some.getClass().getDeclaredField(currKey);
@@ -51,18 +51,18 @@ public class Mapper {
 
                         Object arr[] = field.getType().getEnumConstants();
                         String enumValue = String.valueOf(((JsonObject) jsonNode).values.get(field.getType().getSimpleName().toLowerCase()));
-                        boolean flag = false;
-                        for (int j = 0; j < arr.length; j++) {
-                            String tempEnumValue = "\"" + arr[j] + "\"";
+                        boolean foundEnumValue = false;
+                        for (Object temp:arr) {
+                            String tempEnumValue = "\"" + temp + "\"";
                             if (tempEnumValue.equals(enumValue)) {
-                                field.set(some, arr[j]);
-                                flag = true;
+                                field.set(some, temp);
+                                foundEnumValue = true;
                                 break;
 
                             }
 
                         }
-                        if (!flag) {
+                        if (!foundEnumValue) {
 
                             throw new NoSuchEnumValue(field, "--------\nNo such Enum value\nList of possible enum values");
                         }
