@@ -53,7 +53,8 @@ public class Mapper {
                         String enumValue = String.valueOf(((JsonObject) jsonNode).values.get(field.getType().getSimpleName().toLowerCase()));
                         boolean flag = false;
                         for (int j = 0; j < arr.length; j++) {
-                            if (arr[j].toString().equals(enumValue)) {
+                            String tempEnumValue = "\"" + arr[j] + "\"";
+                            if (tempEnumValue.equals(enumValue)) {
                                 field.set(some, arr[j]);
                                 flag = true;
                                 break;

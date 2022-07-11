@@ -31,7 +31,7 @@ public class Main {
         System.out.println(jsonSerializer.serialize(arr));
         System.out.println(jsonSerializer.serialize(nulll));
         System.out.println(jsonSerializer.serialize(user));
-        User userrr = mapper.map(JsonDeserializer.parse("{\"ableToWork\":true, \"name\":\"Alexey\",\"adress\":{\"city\":\"Gomel\", \"street\":\"Lenina\", \"houseNumber\":12}, \"age\":20}"), User.class);
+        User userrr = mapper.map(JsonDeserializer.parse(jsonSerializer.serialize(user)), User.class);
         String json = jsonSerializer.serialize(userrr);
         System.out.println(json);
         User te = mapper.map(JsonDeserializer.parse(json), User.class);

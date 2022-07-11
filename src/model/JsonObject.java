@@ -40,7 +40,7 @@ public class JsonObject extends JsonNode {
 
         StringJoiner sj = new StringJoiner(", ", "{", "}");
         for (Map.Entry<String, JsonNode> e : values.entrySet()) {
-            if (e.getValue() instanceof JsonString) {
+            if (e.getValue() instanceof CharSequence) {
                 sj.add("\"" + e.getKey() + "\":\"" + e.getValue() + '"');
             } else {
                 sj.add("\"" + e.getKey() + "\":" + e.getValue());
