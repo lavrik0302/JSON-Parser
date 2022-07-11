@@ -1,17 +1,11 @@
 package model;
 
+import lombok.Data;
+
+@Data
 public class JsonNumber extends JsonNode {
     private Number jsonNumber;
-
-    public Number getJsonNumber() {
-        return jsonNumber;
-    }
-
-    public void setJsonNumber(Number jsonNumber) {
-        this.jsonNumber = jsonNumber;
-    }
-
-    @Override
+        @Override
     public String toString() {
 
         return jsonNumber.toString();

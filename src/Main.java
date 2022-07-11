@@ -1,4 +1,4 @@
-import model.*;
+import lombok.Value;
 import parser.Adress;
 import parser.JsonDeserializer;
 import parser.Mapper;
@@ -9,8 +9,8 @@ public class Main {
 
     public static void main(String[] args) {
         Mapper mapper = new Mapper();
-        JsonDeserializer test = new JsonDeserializer("");
-        JsonSerializer jsonSerializer = new JsonSerializer();
+        var test = new JsonDeserializer("");
+        var jsonSerializer = new JsonSerializer();
         User user = new User();
         Adress adress = new Adress();
         adress.setHouseNumber(12);

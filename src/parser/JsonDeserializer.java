@@ -1,5 +1,7 @@
 package parser;
 
+import lombok.Data;
+import lombok.NonNull;
 import model.*;
 import utils.exceptions.InvalidJsonException;
 
@@ -8,10 +10,10 @@ import static java.lang.Boolean.TRUE;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-
-
 public final class JsonDeserializer {
+    @NonNull
     private final String src;
+    @NonNull
     private int cursor;
 
     public JsonDeserializer(String cs) {

@@ -1,11 +1,13 @@
 package model;
 
+import lombok.Data;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringJoiner;
 import java.util.function.BiConsumer;
-
+@Data
 public class JsonObject extends JsonNode {
     public static final JsonObject EMPTY = new JsonObject(Collections.emptyMap());
     public final Map<String, JsonNode> values;

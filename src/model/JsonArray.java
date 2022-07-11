@@ -1,7 +1,9 @@
 package model;
 
-import java.util.*;
+import lombok.Data;
 
+import java.util.*;
+@Data
 public final class JsonArray extends JsonNode implements Iterable<JsonNode> {
     public static final JsonArray EMPTY = new JsonArray(Collections.emptyList());
     public final List<JsonNode> values;
