@@ -1,9 +1,8 @@
-package parser;
+package com.intexsoft.parser;
 
-import lombok.Data;
 import lombok.NonNull;
-import model.*;
-import utils.exceptions.InvalidJsonException;
+import com.intexsoft.model.*;
+import com.intexsoft.utils.exceptions.InvalidJsonException;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;

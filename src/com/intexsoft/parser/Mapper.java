@@ -1,9 +1,9 @@
-package parser;
+package com.intexsoft.parser;
 
-import model.*;
-import utils.CollectionToArray;
-import utils.exceptions.MappingObjectException;
-import utils.exceptions.NoSuchEnumValue;
+import com.intexsoft.model.*;
+import com.intexsoft.utils.CollectionToArray;
+import com.intexsoft.utils.exceptions.MappingObjectException;
+import com.intexsoft.utils.exceptions.NoSuchEnumValue;
 
 import java.lang.reflect.Field;
 import java.util.*;

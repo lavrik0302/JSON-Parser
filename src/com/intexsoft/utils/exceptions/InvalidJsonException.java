@@ -1,4 +1,4 @@
-package utils.exceptions;
+package com.intexsoft.utils.exceptions;
 
 
 public class InvalidJsonException extends RuntimeException {
