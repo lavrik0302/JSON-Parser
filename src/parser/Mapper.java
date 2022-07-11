@@ -9,12 +9,11 @@ import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 public class Mapper {
 
     public <T> T map(JsonNode jsonNode, Class<T> classType) {
         if (classType.isAssignableFrom(Boolean.class) || classType.isAssignableFrom(boolean.class) || classType.isAssignableFrom(JsonBoolean.class)) {
-            return (T) (Object) (((JsonBoolean) jsonNode).getJsonBoolean());
+            return (T) (Object) (((JsonBoolean) jsonNode).isJsonBoolean());
         } else if (classType.isAssignableFrom(String.class) || classType.isAssignableFrom(JsonString.class) || Enum.class.isAssignableFrom(classType)) {
             return (T) ((JsonString) jsonNode).getJsonString();
         } else if (Number.class.isAssignableFrom(classType) || classType.isAssignableFrom(JsonNumber.class)) {

@@ -1,10 +1,18 @@
 package parser;
 
-public class Adress {
-    private Integer houseNumber;
-    private String street;
+import lombok.*;
 
+@Data
+public class Adress {
+    @NonNull
+    private Integer houseNumber;
+    @NonNull
+    private String street;
+    @NonNull
     private City city;
+
+    public Adress() {
+    }
 
     public enum City {
         Grodno,
@@ -13,29 +21,5 @@ public class Adress {
         Gomel,
         Mogilev,
         Brest
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setHouseNumber(Integer houseNumber) {
-        this.houseNumber = houseNumber;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public int getHouseNumber() {
-        return houseNumber;
-    }
-
-    public String getStreet() {
-        return street;
     }
 }

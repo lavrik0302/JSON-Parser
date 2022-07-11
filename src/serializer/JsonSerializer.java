@@ -1,12 +1,11 @@
 package serializer;
 
 import model.*;
-import parser.User;
 import utils.exceptions.JavaObjectToJsonNodeException;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
-import java.util.List;
+
 
 public class JsonSerializer {
     public JsonNode javaObjectToJsonNode(Object javaObject) {

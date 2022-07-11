@@ -1,4 +1,4 @@
-import model.*;
+import lombok.Value;
 import parser.Adress;
 import parser.JsonDeserializer;
 import parser.Mapper;
@@ -9,13 +9,13 @@ public class Main {
 
     public static void main(String[] args) {
         Mapper mapper = new Mapper();
-        JsonDeserializer test = new JsonDeserializer("");
-        JsonSerializer jsonSerializer = new JsonSerializer();
+        var test = new JsonDeserializer("");
+        var jsonSerializer = new JsonSerializer();
         User user = new User();
         Adress adress = new Adress();
         adress.setHouseNumber(12);
-        adress.setStreet("Lenina");
         adress.setCity(Adress.City.Grodno);
+        adress.setStreet("Lenina");
         user.setAge(25);
         user.setName("Alexey");
         user.setAbleToWork(true);
@@ -24,7 +24,7 @@ public class Main {
         Number number = 12;
         Boolean bool = true;
         Object nulll = null;
-        Object arr[] = {string, bool, number, nulll};
+        Object[] arr = {string, bool, number, nulll};
         System.out.println(jsonSerializer.serialize(string));
         System.out.println(jsonSerializer.serialize(number));
         System.out.println(jsonSerializer.serialize(bool));

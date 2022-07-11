@@ -1,11 +1,11 @@
 package model;
 
+import lombok.Data;
+
+@Data
 public class JsonNull extends JsonNode {
     private Object jsonNull;
 
-    public Object getJsonNull() {
-        return jsonNull;
-    }
 
     @Override
     public String toString() {
