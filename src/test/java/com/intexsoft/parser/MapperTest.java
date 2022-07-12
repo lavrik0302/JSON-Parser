@@ -4,6 +4,7 @@ import lombok.Data;
 import main.java.com.intexsoft.model.*;
 import main.java.com.intexsoft.parser.Adress;
 import main.java.com.intexsoft.parser.Mapper;
+import main.java.com.intexsoft.parser.User;
 import main.java.com.intexsoft.utils.exceptions.InvalidJsonException;
 import main.java.com.intexsoft.utils.exceptions.MappingObjectException;
 import main.java.com.intexsoft.utils.exceptions.NoSuchEnumValue;
@@ -152,6 +153,26 @@ public class MapperTest {
         Assert.assertSame(expected.get(3), actual[3]);
     }
 
+
+    @Test
+    public void mappingCollectionFailTest() {
+        JsonString jsonString = new JsonString();
+        JsonNumber jsonNumber = new JsonNumber();
+        JsonArray jsonArray = new JsonArray();
+        JsonBoolean jsonBoolean = new JsonBoolean();
+        jsonBoolean.setJsonBoolean(true);
+        jsonString.setJsonString("test text");
+        jsonNumber.setJsonNumber(12);
+        jsonArray.add(jsonBoolean);
+        jsonArray.add(jsonString);
+        jsonArray.add(jsonNumber);
+        Object[] actual = {false, "test     text", 12.21};
+        LinkedList<Object> expected = mapper.map(jsonArray, LinkedList.class);
+        Assert.assertNotSame(expected.get(0), actual[0]);
+        Assert.assertNotSame(expected.get(1), actual[1]);
+        Assert.assertNotSame(expected.get(2), actual[2]);
+    }
+
     @Test
     public void mappingObjectTest() {
         JsonString jsonString = new JsonString();
@@ -169,6 +190,25 @@ public class MapperTest {
         actual.setHouseNumber(12);
         actual.setStreet("Lenina");
         Adress expected = mapper.map(jsonObject, Adress.class);
+        Assert.assertTrue(expected.equals(actual));
+    }
+    @Test(expected = MappingObjectException.class)
+    public void wrongClassMappingObjectTest() {
+        JsonString jsonString = new JsonString();
+        JsonNumber jsonNumber = new JsonNumber();
+        JsonObject jsonObject = new JsonObject();
+        jsonString.setJsonString("Grodno");
+        jsonNumber.setJsonNumber(12);
+        JsonString jsonString1 = new JsonString();
+        jsonString1.setJsonString("Lenina");
+        jsonObject.add("houseNumber", jsonNumber);
+        jsonObject.add("street", jsonString1);
+        jsonObject.add("city", jsonString);
+        Adress actual = new Adress();
+        actual.setCity(Adress.City.Grodno);
+        actual.setHouseNumber(12);
+        actual.setStreet("Lenina");
+        User expected = mapper.map(jsonObject, User.class);
         Assert.assertTrue(expected.equals(actual));
     }
 
