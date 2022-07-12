@@ -212,7 +212,7 @@ public class MapperTest {
         Assert.assertTrue(expected.equals(actual));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = MappingObjectException.class)
     public void mappingNullObjectTest() {
         JsonObject jsonObject = new JsonObject();
         jsonObject = null;
@@ -232,7 +232,7 @@ public class MapperTest {
         Human human = mapper.map(jsonObject, Human.class);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = MappingObjectException.class)
     public void wrongArgumentInMappingObjectTest() {
         JsonString jsonString = new JsonString();
         JsonNumber jsonNumber = new JsonNumber();
