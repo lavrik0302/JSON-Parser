@@ -3,19 +3,13 @@ package test.java.com.intexsoft.serializer;
 import main.java.com.intexsoft.parser.Adress;
 import main.java.com.intexsoft.serializer.JsonSerializer;
 import main.java.com.intexsoft.model.*;
-import main.java.com.intexsoft.utils.FilesIO;
-import main.java.com.intexsoft.utils.exceptions.IOFileException;
+
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 
 public class JsonSerializerTest {
     JsonSerializer jsonSerializer = new JsonSerializer();
-    FilesIO filesIO = new FilesIO();
 
     @Test
     public void javaBooleanToJsonNodeTest() {

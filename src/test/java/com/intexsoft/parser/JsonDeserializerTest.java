@@ -2,17 +2,11 @@ package test.java.com.intexsoft.parser;
 
 import main.java.com.intexsoft.model.*;
 import main.java.com.intexsoft.parser.JsonDeserializer;
-import main.java.com.intexsoft.utils.FilesIO;
 import main.java.com.intexsoft.utils.exceptions.InvalidJsonException;
-import main.java.com.intexsoft.utils.exceptions.NoSuchFileException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.File;
-
-
 public class JsonDeserializerTest {
-    FilesIO filesIO = new FilesIO();
 
     @Test
     public void parseStringTest() {
@@ -112,6 +106,4 @@ public class JsonDeserializerTest {
     public void parseWrongObjectTest() {
         JsonDeserializer.parse("{\"ableToWork\":true, languages\":[\"Russian\", \"English\"], \"name\":\"Alexey\", \"age\":12}");
     }
-
-
 }
