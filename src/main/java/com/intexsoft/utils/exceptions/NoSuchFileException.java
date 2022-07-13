@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 public class NoSuchFileException extends RuntimeException {
-    public NoSuchFileException(FileNotFoundException e, String message, File file) {
+    public NoSuchFileException(Exception e, String message, File file) {
         System.out.println(e + "\n" + message + " " + file);
     }
 }

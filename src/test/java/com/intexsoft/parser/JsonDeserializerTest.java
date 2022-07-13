@@ -3,8 +3,12 @@ package test.java.com.intexsoft.parser;
 import main.java.com.intexsoft.model.*;
 import main.java.com.intexsoft.parser.JsonDeserializer;
 import main.java.com.intexsoft.utils.exceptions.InvalidJsonException;
+import main.java.com.intexsoft.utils.exceptions.NoSuchFileException;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.IOException;
 
 public class JsonDeserializerTest {
     @Test
@@ -104,5 +108,43 @@ public class JsonDeserializerTest {
     @Test(expected = InvalidJsonException.class)
     public void parseWrongObjectTest() {
         JsonDeserializer.parse("{\"ableToWork\":true, languages\":[\"Russian\", \"English\"], \"name\":\"Alexey\", \"age\":12}");
+    }
+    @Test
+    public void parseFromFileTest(){
+            File file=new File("src/test/resources/text.txt");
+            JsonNumber actual=new JsonNumber();
+            actual.setJsonNumber(12);
+            JsonNode excepted=JsonDeserializer.parse(file);
+            Assert.assertTrue(excepted.equals(actual));
+    }
+    @Test
+    public void parseFromFileFailTest(){
+        File file=new File("src/test/resources/text.txt");
+        JsonNumber actual=new JsonNumber();
+        actual.setJsonNumber(12.1);
+        JsonNode excepted=JsonDeserializer.parse(file);
+        Assert.assertFalse(excepted.equals(actual));
+    }
+    @Test(expected = InvalidJsonException.class)
+    public void parsingInvalidJsonFromFileTest(){
+        File file=new File("src/test/resources/invalidJson.txt");
+        JsonNode excepted=JsonDeserializer.parse(file);
+    }
+
+    @Test(expected = NoSuchFileException.class)
+    public void parseFromNoSuchFileTest(){
+        File file=new File("src/test/resources/texxxxxxt.txt");
+        JsonNumber actual=new JsonNumber();
+        actual.setJsonNumber(12);
+        JsonNode excepted=JsonDeserializer.parse(file);
+        Assert.assertTrue(excepted.equals(actual));
+    }
+    @Test(expected =  NoSuchFileException.class)
+    public void parseFromLockedFileTest(){
+        File file=new File("src/test/resources/chmod222.txt");
+        JsonNumber actual=new JsonNumber();
+        actual.setJsonNumber(12);
+        JsonNode excepted=JsonDeserializer.parse(file);
+        Assert.assertTrue(excepted.equals(actual));
     }
 }

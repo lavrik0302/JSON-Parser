@@ -3,3 +3,5 @@ out/
 out/production/jsonParser/Main.class
 target/
 JsonParser.iml
+src/test/resources/chmod222.txt
+src/test/resources/chmod444.txt

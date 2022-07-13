@@ -2,6 +2,7 @@ package main.java.com.intexsoft.parser;
 
 import lombok.NonNull;
 import main.java.com.intexsoft.model.*;
+import main.java.com.intexsoft.utils.exceptions.IOFileException;
 import main.java.com.intexsoft.utils.exceptions.InvalidJsonException;
 import main.java.com.intexsoft.utils.exceptions.NoSuchFileException;
 
@@ -160,12 +161,17 @@ public final class JsonDeserializer {
         }
     }
 
-    public static JsonNode parse(File file) throws IOException {
+    public static JsonNode parse(File file)  {
         try {
             FileReader fileReader = new FileReader(file);
             StringBuilder stringBuilder = new StringBuilder();
             int end;
-            while ((end = fileReader.read()) != -1) {
+            while (true) {
+                try {
+                    if (!((end = fileReader.read()) != -1)) break;
+                } catch (IOException e) {
+                    throw new IOFileException(e,"Problems with reading from file ",file);
+                }
                 stringBuilder.append((char) end);
             }
             JsonDeserializer parser = new JsonDeserializer(stringBuilder.toString());
