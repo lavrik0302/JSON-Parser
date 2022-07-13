@@ -20,13 +20,13 @@ public final class JsonDeserializer {
     @NonNull
     private final String src;
     @NonNull
-    private int cursor;
+    public int cursor;
 
     public JsonDeserializer(String cs) {
         this.src = cs;
     }
 
-    private JsonNode parseValue() {
+    public JsonNode parseValue() {
         JsonNode value;
         skipWhitespaces();
 
@@ -160,32 +160,6 @@ public final class JsonDeserializer {
             throw new InvalidJsonException("Wrong JSON at position: ", parser.cursor);
         }
     }
-
-    public static JsonNode parse(File file)  {
-        try {
-            FileReader fileReader = new FileReader(file);
-            StringBuilder stringBuilder = new StringBuilder();
-            int end;
-            while (true) {
-                try {
-                    if (!((end = fileReader.read()) != -1)) break;
-                } catch (IOException e) {
-                    throw new IOFileException(e,"Problems with reading from file ",file);
-                }
-                stringBuilder.append((char) end);
-            }
-            JsonDeserializer parser = new JsonDeserializer(stringBuilder.toString());
-
-            try {
-                return parser.parseValue();
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new InvalidJsonException("Wrong JSON at position: ", parser.cursor);
-            }
-        } catch (FileNotFoundException e) {
-            throw new NoSuchFileException(e, "No such file ", file);
-        }
-    }
-
 
     public static JsonObject parseObject(String jsonContent) throws IllegalArgumentException {
         return (JsonObject) parse(jsonContent);

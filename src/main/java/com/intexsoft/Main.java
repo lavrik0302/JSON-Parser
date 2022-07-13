@@ -7,6 +7,7 @@ import main.java.com.intexsoft.parser.JsonDeserializer;
 import main.java.com.intexsoft.parser.Mapper;
 import main.java.com.intexsoft.parser.User;
 import main.java.com.intexsoft.serializer.JsonSerializer;
+import main.java.com.intexsoft.utils.FilesIO;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +20,8 @@ public class Main {
         str.setCity(Adress.City.Mogilev);
         str.setHouseNumber(12);
         str.setStreet("Soviet");
-        JsonNode jsonNode = JsonDeserializer.parse(file);
+        FilesIO filesIO = new FilesIO();
+        JsonNode jsonNode = filesIO.parse(file);
 
     }
 }

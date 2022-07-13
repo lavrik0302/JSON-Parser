@@ -3,6 +3,7 @@ package test.java.com.intexsoft.serializer;
 import main.java.com.intexsoft.parser.Adress;
 import main.java.com.intexsoft.serializer.JsonSerializer;
 import main.java.com.intexsoft.model.*;
+import main.java.com.intexsoft.utils.FilesIO;
 import main.java.com.intexsoft.utils.exceptions.IOFileException;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,6 +15,7 @@ import java.io.IOException;
 
 public class JsonSerializerTest {
     JsonSerializer jsonSerializer = new JsonSerializer();
+    FilesIO filesIO = new FilesIO();
 
     @Test
     public void javaBooleanToJsonNodeTest() {
@@ -217,20 +219,21 @@ public class JsonSerializerTest {
         Adress adress = new Adress();
         Assert.assertTrue(jsonSerializer.serialize(adress).equals("{\"city\":null, \"street\":null, \"houseNumber\":null}"));
     }
+
     @Test
     public void serializeToFile() {
-        String str="Hello World!";
-        File file=new File("src/test/resources/serializeTestFile.txt");
-        jsonSerializer.serialize(str,file);
-        FileReader fileReader= null;
+        String str = "Hello World!";
+        File file = new File("src/test/resources/serializeTestFile.txt");
+        filesIO.serialize(str, file);
+        FileReader fileReader = null;
         try {
             fileReader = new FileReader(file);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        StringBuilder sb=new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         int end;
-        while (true){
+        while (true) {
             try {
                 if (!((end = fileReader.read()) != -1)) break;
             } catch (IOException e) {
@@ -238,23 +241,24 @@ public class JsonSerializerTest {
             }
             sb.append((char) end);
         }
-        Assert.assertTrue(("\""+str+"\"").equals(sb.toString()));
+        Assert.assertTrue(("\"" + str + "\"").equals(sb.toString()));
     }
+
     @Test
-    public void serializeToNoSuchFile()  {
-        String str="Hello World!";
-        File file=new File("src/test/resources/seriallllllllizeTestFile.txt");
+    public void serializeToNoSuchFile() {
+        String str = "Hello World!";
+        File file = new File("src/test/resources/seriallllllllizeTestFile.txt");
         System.out.println("created new File");
-        jsonSerializer.serialize(str,file);
-        FileReader fileReader= null;
+        filesIO.serialize(str, file);
+        FileReader fileReader = null;
         try {
             fileReader = new FileReader(file);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        StringBuilder sb=new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         int end;
-        while (true){
+        while (true) {
             try {
                 if (!((end = fileReader.read()) != -1)) break;
             } catch (IOException e) {
@@ -262,23 +266,23 @@ public class JsonSerializerTest {
             }
             sb.append((char) end);
         }
-        Assert.assertTrue(("\""+str+"\"").equals(sb.toString()));
+        Assert.assertTrue(("\"" + str + "\"").equals(sb.toString()));
     }
 
     @Test(expected = IOFileException.class)
     public void serializeToForbiddenFile() {
-        String str="Hello World!";
-        File file=new File("src/test/resources/chmod444.txt");
-        jsonSerializer.serialize(str,file);
-        FileReader fileReader= null;
+        String str = "Hello World!";
+        File file = new File("src/test/resources/chmod444.txt");
+        filesIO.serialize(str, file);
+        FileReader fileReader = null;
         try {
             fileReader = new FileReader(file);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        StringBuilder sb=new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         int end;
-        while (true){
+        while (true) {
             try {
                 if (!((end = fileReader.read()) != -1)) break;
             } catch (IOException e) {
@@ -286,6 +290,6 @@ public class JsonSerializerTest {
             }
             sb.append((char) end);
         }
-        Assert.assertTrue(("\""+str+"\"").equals(sb.toString()));
+        Assert.assertTrue(("\"" + str + "\"").equals(sb.toString()));
     }
 }

@@ -1,19 +1,14 @@
 package main.java.com.intexsoft.serializer;
 
 import main.java.com.intexsoft.model.*;
-import main.java.com.intexsoft.utils.exceptions.IOFileException;
 import main.java.com.intexsoft.utils.exceptions.JavaObjectToJsonNodeException;
-import main.java.com.intexsoft.utils.exceptions.NoSuchFileException;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 
 
 public class JsonSerializer {
-    public JsonNode javaObjectToJsonNode(Object javaObject) {
+    public static JsonNode javaObjectToJsonNode(Object javaObject) {
         if (javaObject == null) {
             JsonNull jsonNull = new JsonNull();
             return jsonNull;
@@ -75,28 +70,5 @@ public class JsonSerializer {
         return null;
     }
 
-    public void serialize(Object javaObject, File file) {
-        FileWriter fileWriter = null;
-        try {
-            fileWriter = new FileWriter(file);
 
-            JsonNode jsonNode = javaObjectToJsonNode(javaObject);
-            if (jsonNode.getClass().isAssignableFrom(JsonNull.class)) {
-                fileWriter.write(((JsonNull) jsonNode).toString());
-            } else if (jsonNode.getClass().isAssignableFrom(JsonBoolean.class)) {
-                fileWriter.write(((JsonBoolean) jsonNode).toString());
-            } else if (jsonNode.getClass().isAssignableFrom(JsonString.class)) {
-                fileWriter.write(((JsonString) jsonNode).toString());
-            } else if (jsonNode.getClass().isAssignableFrom(JsonNumber.class)) {
-                fileWriter.write(((JsonNumber) jsonNode).toString());
-            } else if (jsonNode.getClass().isAssignableFrom(JsonArray.class)) {
-                fileWriter.write(((JsonArray) jsonNode).toString());
-            } else if (jsonNode.getClass().isAssignableFrom(JsonObject.class)) {
-                fileWriter.write(((JsonObject) jsonNode).toString());
-            }
-            fileWriter.flush();
-        } catch (IOException e) {
-            throw new IOFileException(e,"Problem with writing to file ",file);
-        }
-    }
 }
