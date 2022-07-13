@@ -8,6 +8,7 @@ import main.java.com.intexsoft.utils.exceptions.InvalidJsonException;
 import main.java.com.intexsoft.utils.exceptions.NoSuchFileException;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
@@ -15,11 +16,16 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import static org.junit.Assert.*;
 
 public class FilesIOTest {
     FilesIO filesIO = new FilesIO();
-
+    @Before
+    public void setUp(){
+        File file = new File("src/test/resources/chmod222.txt");
+        file.setReadable(false);
+        File file1 = new File("src/test/resources/chmod444.txt");
+        file1.setWritable(false);
+    }
     @Test
     public void serializeToFile() {
         String str = "Hello World!";
@@ -73,7 +79,6 @@ public class FilesIOTest {
     public void serializeToForbiddenFile() {
         String str = "Hello World!";
         File file = new File("src/test/resources/chmod444.txt");
-        file.setWritable(false);
         filesIO.serialize(str, file);
         FileReader fileReader = null;
         try {
@@ -126,11 +131,9 @@ public class FilesIOTest {
         JsonNode excepted = filesIO.parse(file);
         Assert.assertTrue(excepted.equals(actual));
     }
-
-    @Test(expected = NoSuchFileException.class)
+    @Test(expected = NoSuchFileException.class,timeout = 100)
     public void parseFromLockedFileTest() {
         File file = new File("src/test/resources/chmod222.txt");
-        file.setReadable(false);
         JsonNumber actual = new JsonNumber();
         actual.setJsonNumber(12);
         JsonNode excepted = filesIO.parse(file);
