@@ -43,8 +43,9 @@ public class FilesIO {
         FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(file);
+            JsonSerializer jsonSerializer=new JsonSerializer();
 
-            JsonNode jsonNode = JsonSerializer.javaObjectToJsonNode(javaObject);
+            JsonNode jsonNode = jsonSerializer.javaObjectToJsonNode(javaObject);
             if (jsonNode.getClass().isAssignableFrom(JsonNull.class)) {
                 fileWriter.write(((JsonNull) jsonNode).toString());
             } else if (jsonNode.getClass().isAssignableFrom(JsonBoolean.class)) {
