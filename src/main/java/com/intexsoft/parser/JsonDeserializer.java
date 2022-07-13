@@ -3,12 +3,18 @@ package main.java.com.intexsoft.parser;
 import lombok.NonNull;
 import main.java.com.intexsoft.model.*;
 import main.java.com.intexsoft.utils.exceptions.InvalidJsonException;
+import main.java.com.intexsoft.utils.exceptions.NoSuchFileException;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+
 public final class JsonDeserializer {
     @NonNull
     private final String src;
@@ -50,13 +56,14 @@ public final class JsonDeserializer {
                 jsonBooleanFalse.setJsonBoolean(FALSE);
                 value = jsonBooleanFalse;
                 break;
-            default:try {
-                value = parseNumber();
-                break;
-            }catch (NumberFormatException e){
-                value=parseString();
-                break;
-            }
+            default:
+                try {
+                    value = parseNumber();
+                    break;
+                } catch (NumberFormatException e) {
+                    value = parseString();
+                    break;
+                }
         }
         return value;
     }
@@ -152,6 +159,27 @@ public final class JsonDeserializer {
             throw new InvalidJsonException("Wrong JSON at position: ", parser.cursor);
         }
     }
+
+    public static JsonNode parse(File file) throws IOException {
+        try {
+            FileReader fileReader = new FileReader(file);
+            StringBuilder stringBuilder = new StringBuilder();
+            int end;
+            while ((end = fileReader.read()) != -1) {
+                stringBuilder.append((char) end);
+            }
+            JsonDeserializer parser = new JsonDeserializer(stringBuilder.toString());
+
+            try {
+                return parser.parseValue();
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new InvalidJsonException("Wrong JSON at position: ", parser.cursor);
+            }
+        } catch (FileNotFoundException e) {
+            throw new NoSuchFileException(e, "No such file ", file);
+        }
+    }
+
 
     public static JsonObject parseObject(String jsonContent) throws IllegalArgumentException {
         return (JsonObject) parse(jsonContent);

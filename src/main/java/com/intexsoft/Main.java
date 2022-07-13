@@ -1,48 +1,25 @@
 package main.java.com.intexsoft;
 
+import main.java.com.intexsoft.model.JsonNode;
+import main.java.com.intexsoft.model.JsonObject;
 import main.java.com.intexsoft.parser.Adress;
 import main.java.com.intexsoft.parser.JsonDeserializer;
 import main.java.com.intexsoft.parser.Mapper;
 import main.java.com.intexsoft.parser.User;
 import main.java.com.intexsoft.serializer.JsonSerializer;
 
+import java.io.File;
+import java.io.IOException;
+
 public class Main {
 
-    public static void main(String[] args) {
-        Mapper mapper = new Mapper();
-        var test = new JsonDeserializer("");
-        var jsonSerializer = new JsonSerializer();
-        User user = new User();
-        Adress adress = new Adress();
-        adress.setHouseNumber(12);
-        adress.setCity(Adress.City.Grodno);
-        adress.setStreet("Lenina");
-        user.setAge(25);
-        user.setName("Alexey");
-        user.setAbleToWork(true);
-        user.setAdress(adress);
-        String string = "some text for test";
-        Number number = 12;
-        Boolean bool = true;
-        Object nulll = null;
-        Object[] arr = {string, bool, number, nulll};
-        System.out.println(jsonSerializer.serialize(string));
-        System.out.println(jsonSerializer.serialize(number));
-        System.out.println(jsonSerializer.serialize(bool));
-        System.out.println(jsonSerializer.serialize(arr));
-        System.out.println(jsonSerializer.serialize(nulll));
-        System.out.println(jsonSerializer.serialize(user));
-        User userrr = mapper.map(JsonDeserializer.parse(jsonSerializer.serialize(user)), User.class);
-        String json = jsonSerializer.serialize(userrr);
-        System.out.println(json);
-        User te = mapper.map(JsonDeserializer.parse(json), User.class);
-        System.out.println(te.getAge());
-        System.out.println(te.getAbleToWork());
-        System.out.println(te.getName());
-        System.out.println(te.getAdress().getCity());
-        System.out.println(te.getAdress().getHouseNumber());
-        System.out.println(te.getAdress().getStreet());
+    public static void main(String[] args) throws IOException {
+        File file = new File("src/main/java/com/intexsoft/text.txt");
+        Adress str = new Adress();
+        str.setCity(Adress.City.Mogilev);
+        str.setHouseNumber(12);
+        str.setStreet("Soviet");
+        JsonNode jsonNode = JsonDeserializer.parse(file);
 
-        System.out.println();
     }
 }
