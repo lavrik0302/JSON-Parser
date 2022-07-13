@@ -1,5 +1,6 @@
 package main.java.com.intexsoft.parser;
 
+import lombok.Getter;
 import lombok.NonNull;
 import main.java.com.intexsoft.model.*;
 import main.java.com.intexsoft.utils.exceptions.IOFileException;
@@ -20,7 +21,8 @@ public final class JsonDeserializer {
     @NonNull
     private final String src;
     @NonNull
-    public int cursor;
+    @Getter
+    private int cursor;
 
     public JsonDeserializer(String cs) {
         this.src = cs;

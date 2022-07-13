@@ -14,8 +14,7 @@ import java.io.IOException;
 
 public class FilesIO {
     public JsonNode parse(File file) {
-        try {
-            FileReader fileReader = new FileReader(file);
+        try (FileReader fileReader = new FileReader(file)) {
             StringBuilder stringBuilder = new StringBuilder();
             int end;
             while (true) {
@@ -27,11 +26,10 @@ public class FilesIO {
                 stringBuilder.append((char) end);
             }
             JsonDeserializer parser = new JsonDeserializer(stringBuilder.toString());
-            fileReader.close();
             try {
                 return parser.parseValue();
             } catch (StringIndexOutOfBoundsException e) {
-                throw new InvalidJsonException("Wrong JSON at position: ", parser.cursor);
+                throw new InvalidJsonException("Wrong JSON at position: ", parser.getCursor());
             }
 
         } catch (IOException e) {
@@ -40,11 +38,8 @@ public class FilesIO {
     }
 
     public void serialize(Object javaObject, File file) {
-        FileWriter fileWriter = null;
-        try {
-            fileWriter = new FileWriter(file);
-            JsonSerializer jsonSerializer=new JsonSerializer();
-
+        try (FileWriter fileWriter = new FileWriter(file)) {
+            JsonSerializer jsonSerializer = new JsonSerializer();
             JsonNode jsonNode = jsonSerializer.javaObjectToJsonNode(javaObject);
             if (jsonNode.getClass().isAssignableFrom(JsonNull.class)) {
                 fileWriter.write(((JsonNull) jsonNode).toString());
@@ -59,7 +54,6 @@ public class FilesIO {
             } else if (jsonNode.getClass().isAssignableFrom(JsonObject.class)) {
                 fileWriter.write(((JsonObject) jsonNode).toString());
             }
-            fileWriter.flush();
         } catch (IOException e) {
             throw new IOFileException(e, "Problem with writing to file ", file);
         }

@@ -12,8 +12,7 @@ import java.io.File;
 
 
 public class JsonDeserializerTest {
-    FilesIO filesIO = new FilesIO();
-
+    FilesIO filesIO=new FilesIO();
     @Test
     public void parseStringTest() {
         JsonString jsonString = new JsonString();
