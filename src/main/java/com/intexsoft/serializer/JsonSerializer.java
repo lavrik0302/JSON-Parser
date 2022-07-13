@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
 
 
 public class JsonSerializer {
-    public  JsonNode javaObjectToJsonNode(Object javaObject) {
+    public JsonNode javaObjectToJsonNode(Object javaObject) {
         if (javaObject == null) {
             JsonNull jsonNull = new JsonNull();
             return jsonNull;

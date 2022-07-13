@@ -12,7 +12,8 @@ import java.io.File;
 
 
 public class JsonDeserializerTest {
-    FilesIO filesIO=new FilesIO();
+    FilesIO filesIO = new FilesIO();
+
     @Test
     public void parseStringTest() {
         JsonString jsonString = new JsonString();
@@ -112,45 +113,5 @@ public class JsonDeserializerTest {
         JsonDeserializer.parse("{\"ableToWork\":true, languages\":[\"Russian\", \"English\"], \"name\":\"Alexey\", \"age\":12}");
     }
 
-    @Test
-    public void parseFromFileTest() {
-        File file = new File("src/test/resources/text.txt");
-        JsonNumber actual = new JsonNumber();
-        actual.setJsonNumber(12);
-        JsonNode excepted = filesIO.parse(file);
-        Assert.assertTrue(excepted.equals(actual));
-    }
 
-    @Test
-    public void parseFromFileFailTest() {
-        File file = new File("src/test/resources/text.txt");
-        JsonNumber actual = new JsonNumber();
-        actual.setJsonNumber(12.1);
-        JsonNode excepted = filesIO.parse(file);
-        Assert.assertFalse(excepted.equals(actual));
-    }
-
-    @Test(expected = InvalidJsonException.class)
-    public void parsingInvalidJsonFromFileTest() {
-        File file = new File("src/test/resources/invalidJson.txt");
-        JsonNode excepted = filesIO.parse(file);
-    }
-
-    @Test(expected = NoSuchFileException.class)
-    public void parseFromNoSuchFileTest() {
-        File file = new File("src/test/resources/texxxxxxt.txt");
-        JsonNumber actual = new JsonNumber();
-        actual.setJsonNumber(12);
-        JsonNode excepted = filesIO.parse(file);
-        Assert.assertTrue(excepted.equals(actual));
-    }
-
-    @Test(expected = NoSuchFileException.class)
-    public void parseFromLockedFileTest() {
-        File file = new File("src/test/resources/chmod222.txt");
-        JsonNumber actual = new JsonNumber();
-        actual.setJsonNumber(12);
-        JsonNode excepted = filesIO.parse(file);
-        Assert.assertTrue(excepted.equals(actual));
-    }
 }
