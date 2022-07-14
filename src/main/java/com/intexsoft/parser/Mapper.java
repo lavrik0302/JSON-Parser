@@ -32,44 +32,47 @@ public class Mapper {
             } catch (InstantiationException | IllegalAccessException e) {
                 throw new MappingObjectException(e, " Mapping Object Exception ", classType);
             }
+            try {
+                Field[] fields = some.getClass().getDeclaredFields();
+                Field field;
+                Set<String> keys = ((JsonObject) jsonNode).values.keySet();
+                Iterator keysIterator = keys.iterator();
 
-            Field[] fields = some.getClass().getDeclaredFields();
-            Field field;
-            Set<String> keys = ((JsonObject) jsonNode).values.keySet();
-            Iterator keysIterator = keys.iterator();
-
-            for (Field field1:fields) {
-                try {
-                    String currKey = (String) keysIterator.next();
-                    field = some.getClass().getDeclaredField(currKey);
-                    field.setAccessible(true);
+                for (Field field1 : fields) {
                     try {
-                        field.set(some, map(((JsonObject) jsonNode).get(currKey), (Class<T>) field.getGenericType()));
+                        String currKey = (String) keysIterator.next();
+                        field = some.getClass().getDeclaredField(currKey);
+                        field.setAccessible(true);
+                        try {
+                            field.set(some, map(((JsonObject) jsonNode).get(currKey), (Class<T>) field.getGenericType()));
 
-                    } catch (IllegalArgumentException | ClassCastException e) {
+                        } catch (IllegalArgumentException | ClassCastException e) {
 
-                        Object arr[] = field.getType().getEnumConstants();
-                        String enumValue = String.valueOf(((JsonObject) jsonNode).values.get(field.getType().getSimpleName().toLowerCase()));
-                        boolean foundEnumValue = false;
-                        for (Object temp:arr) {
-                            String tempEnumValue = "\"" + temp + "\"";
-                            if (tempEnumValue.equals(enumValue)) {
-                                field.set(some, temp);
-                                foundEnumValue = true;
-                                break;
+                            Object arr[] = field.getType().getEnumConstants();
+                            String enumValue = String.valueOf(((JsonObject) jsonNode).values.get(field.getType().getSimpleName().toLowerCase()));
+                            boolean foundEnumValue = false;
+                            for (Object temp : arr) {
+                                String tempEnumValue = "\"" + temp + "\"";
+                                if (tempEnumValue.equals(enumValue)) {
+                                    field.set(some, temp);
+                                    foundEnumValue = true;
+                                    break;
+
+                                }
 
                             }
+                            if (!foundEnumValue) {
 
+                                throw new NoSuchEnumValue(field, "--------\nNo such Enum value\nList of possible enum values");
+                            }
                         }
-                        if (!foundEnumValue) {
-
-                            throw new NoSuchEnumValue(field, "--------\nNo such Enum value\nList of possible enum values");
-                        }
+                        field.setAccessible(false);
+                    } catch (NoSuchFieldException | IllegalAccessException e) {
+                        throw new MappingObjectException(e, " Mapping object exception ", classType);
                     }
-                    field.setAccessible(false);
-                } catch (NoSuchFieldException | IllegalAccessException e) {
-                    throw new MappingObjectException(e, " Mapping object exception ", classType);
                 }
+            } catch (NullPointerException e) {
+                throw new MappingObjectException(e, "Mapping object exception", classType);
             }
             return (T) some;
         }

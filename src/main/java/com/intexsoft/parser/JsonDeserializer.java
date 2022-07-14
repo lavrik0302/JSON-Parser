@@ -1,25 +1,28 @@
 package com.intexsoft.parser;
 
-import lombok.NonNull;
 import com.intexsoft.model.*;
+import lombok.Getter;
+import lombok.NonNull;
 import com.intexsoft.utils.exceptions.InvalidJsonException;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 public final class JsonDeserializer {
     @NonNull
     private final String src;
     @NonNull
+    @Getter
     private int cursor;
 
     public JsonDeserializer(String cs) {
         this.src = cs;
     }
 
-    private JsonNode parseValue() {
+    public JsonNode parseValue() {
         JsonNode value;
         skipWhitespaces();
 
@@ -50,13 +53,14 @@ public final class JsonDeserializer {
                 jsonBooleanFalse.setJsonBoolean(FALSE);
                 value = jsonBooleanFalse;
                 break;
-            default:try {
-                value = parseNumber();
-                break;
-            }catch (NumberFormatException e){
-                value=parseString();
-                break;
-            }
+            default:
+                try {
+                    value = parseNumber();
+                    break;
+                } catch (NumberFormatException e) {
+                    value = parseString();
+                    break;
+                }
         }
         return value;
     }
