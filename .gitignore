@@ -1,5 +1,5 @@
 .idea/
 out/
 out/production/jsonParser/Main.class
+jsonParser.iml
 target/
-JsonParser.iml
