@@ -1,11 +1,11 @@
-package test.java.com.intexsoft.utils;
+package com.intexsoft.utils;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.*;
 
-import static main.java.com.intexsoft.utils.CollectionToArray.collectionToArray;
+import static com.intexsoft.utils.CollectionToArray.collectionToArray;
 
 public class CollectionToArrayTest {
 

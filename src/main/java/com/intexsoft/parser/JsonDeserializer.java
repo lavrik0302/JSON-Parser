@@ -1,21 +1,15 @@
-package main.java.com.intexsoft.parser;
+package com.intexsoft.parser;
 
+import com.intexsoft.model.*;
 import lombok.Getter;
 import lombok.NonNull;
-import main.java.com.intexsoft.model.*;
-import main.java.com.intexsoft.utils.exceptions.IOFileException;
-import main.java.com.intexsoft.utils.exceptions.InvalidJsonException;
-import main.java.com.intexsoft.utils.exceptions.NoSuchFileException;
+import com.intexsoft.utils.exceptions.InvalidJsonException;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 
 public final class JsonDeserializer {
     @NonNull

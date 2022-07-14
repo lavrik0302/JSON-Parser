@@ -1,7 +1,6 @@
-package main.java.com.intexsoft.utils.exceptions;
+package com.intexsoft.utils.exceptions;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 public class NoSuchFileException extends RuntimeException {
     public NoSuchFileException(Exception e, String message, File file) {

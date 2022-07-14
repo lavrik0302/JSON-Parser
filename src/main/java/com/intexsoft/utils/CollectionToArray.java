@@ -1,4 +1,4 @@
-package main.java.com.intexsoft.utils;
+package com.intexsoft.utils;
 
 import lombok.experimental.UtilityClass;
 

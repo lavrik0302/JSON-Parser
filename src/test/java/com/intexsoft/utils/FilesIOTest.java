@@ -1,11 +1,10 @@
-package test.java.com.intexsoft.utils;
+package com.intexsoft.utils;
 
-import main.java.com.intexsoft.model.JsonNode;
-import main.java.com.intexsoft.model.JsonNumber;
-import main.java.com.intexsoft.utils.FilesIO;
-import main.java.com.intexsoft.utils.exceptions.IOFileException;
-import main.java.com.intexsoft.utils.exceptions.InvalidJsonException;
-import main.java.com.intexsoft.utils.exceptions.NoSuchFileException;
+import com.intexsoft.model.JsonNode;
+import com.intexsoft.model.JsonNumber;
+import com.intexsoft.utils.exceptions.IOFileException;
+import com.intexsoft.utils.exceptions.InvalidJsonException;
+import com.intexsoft.utils.exceptions.NoSuchFileException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

@@ -1,13 +1,9 @@
-package test.java.com.intexsoft.parser;
+package com.intexsoft.parser;
 
+import com.intexsoft.model.*;
+import com.intexsoft.utils.exceptions.MappingObjectException;
+import com.intexsoft.utils.exceptions.NoSuchEnumValue;
 import lombok.Data;
-import main.java.com.intexsoft.model.*;
-import main.java.com.intexsoft.parser.Adress;
-import main.java.com.intexsoft.parser.Mapper;
-import main.java.com.intexsoft.parser.User;
-import main.java.com.intexsoft.utils.exceptions.InvalidJsonException;
-import main.java.com.intexsoft.utils.exceptions.MappingObjectException;
-import main.java.com.intexsoft.utils.exceptions.NoSuchEnumValue;
 import org.junit.Assert;
 import org.junit.Test;
 

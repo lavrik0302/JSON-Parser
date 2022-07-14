@@ -1,8 +1,7 @@
-package test.java.com.intexsoft.parser;
+package com.intexsoft.parser;
 
-import main.java.com.intexsoft.model.*;
-import main.java.com.intexsoft.parser.JsonDeserializer;
-import main.java.com.intexsoft.utils.exceptions.InvalidJsonException;
+import com.intexsoft.model.*;
+import com.intexsoft.utils.exceptions.InvalidJsonException;
 import org.junit.Assert;
 import org.junit.Test;
 

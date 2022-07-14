@@ -1,4 +1,4 @@
-package main.java.com.intexsoft.parser;
+package com.intexsoft.parser;
 
 import lombok.*;
 

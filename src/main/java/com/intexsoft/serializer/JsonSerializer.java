@@ -1,7 +1,7 @@
-package main.java.com.intexsoft.serializer;
+package com.intexsoft.serializer;
 
-import main.java.com.intexsoft.model.*;
-import main.java.com.intexsoft.utils.exceptions.JavaObjectToJsonNodeException;
+import com.intexsoft.model.*;
+import com.intexsoft.utils.exceptions.JavaObjectToJsonNodeException;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;

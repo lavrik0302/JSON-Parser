@@ -1,4 +1,4 @@
-package main.java.com.intexsoft.utils.exceptions;
+package com.intexsoft.utils.exceptions;
 
 import java.lang.reflect.Field;
 

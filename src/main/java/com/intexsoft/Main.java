@@ -1,13 +1,8 @@
-package main.java.com.intexsoft;
+package com.intexsoft;
 
-import main.java.com.intexsoft.model.JsonNode;
-import main.java.com.intexsoft.model.JsonObject;
-import main.java.com.intexsoft.parser.Adress;
-import main.java.com.intexsoft.parser.JsonDeserializer;
-import main.java.com.intexsoft.parser.Mapper;
-import main.java.com.intexsoft.parser.User;
-import main.java.com.intexsoft.serializer.JsonSerializer;
-import main.java.com.intexsoft.utils.FilesIO;
+import com.intexsoft.model.JsonNode;
+import com.intexsoft.parser.Adress;
+import com.intexsoft.utils.FilesIO;
 
 import java.io.File;
 import java.io.IOException;

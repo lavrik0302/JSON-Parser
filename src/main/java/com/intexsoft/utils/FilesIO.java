@@ -1,11 +1,11 @@
-package main.java.com.intexsoft.utils;
+package com.intexsoft.utils;
 
-import main.java.com.intexsoft.model.*;
-import main.java.com.intexsoft.parser.JsonDeserializer;
-import main.java.com.intexsoft.serializer.JsonSerializer;
-import main.java.com.intexsoft.utils.exceptions.IOFileException;
-import main.java.com.intexsoft.utils.exceptions.InvalidJsonException;
-import main.java.com.intexsoft.utils.exceptions.NoSuchFileException;
+import com.intexsoft.model.*;
+import com.intexsoft.parser.JsonDeserializer;
+import com.intexsoft.serializer.JsonSerializer;
+import com.intexsoft.utils.exceptions.IOFileException;
+import com.intexsoft.utils.exceptions.InvalidJsonException;
+import com.intexsoft.utils.exceptions.NoSuchFileException;
 
 import java.io.File;
 import java.io.FileReader;

@@ -1,9 +1,7 @@
-package test.java.com.intexsoft.serializer;
+package com.intexsoft.serializer;
 
-import main.java.com.intexsoft.parser.Adress;
-import main.java.com.intexsoft.serializer.JsonSerializer;
-import main.java.com.intexsoft.model.*;
-
+import com.intexsoft.model.*;
+import com.intexsoft.parser.Adress;
 import org.junit.Assert;
 import org.junit.Test;
 
