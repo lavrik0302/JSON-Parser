@@ -8,7 +8,6 @@ import com.intexsoft.utils.exceptions.NoSuchEnumValue;
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
-
 public class Mapper {
 
     public <T> T map(JsonNode jsonNode, Class<T> classType) {

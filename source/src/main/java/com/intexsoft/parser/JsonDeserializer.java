@@ -1,9 +1,9 @@
 package com.intexsoft.parser;
 
 import com.intexsoft.model.*;
+import com.intexsoft.utils.exceptions.InvalidJsonException;
 import lombok.Getter;
 import lombok.NonNull;
-import com.intexsoft.utils.exceptions.InvalidJsonException;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

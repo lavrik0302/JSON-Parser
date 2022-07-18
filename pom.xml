@@ -7,38 +7,18 @@
     <groupId>com.intexsoft</groupId>
     <artifactId>parser</artifactId>
     <version>1.0-SNAPSHOT</version>
-
     <modules>
         <module>source</module>
         <module>firstplugin</module>
+        <module>common</module>
     </modules>
     <packaging>pom</packaging>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.intexsoft</groupId>
-                <artifactId>firstplugin</artifactId>
-                <version>1.2-SNAPSHOT</version>
-                <configuration>
-                    <rootToFile>
-                        /home/INTEXSOFT/alexey.lavrenchuk/IdeaProjects/test1/JSON-Parser/source/src/main/java/com/intexsoft/text.txt
-                    </rootToFile>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>startprogram</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+
 
 </project>
