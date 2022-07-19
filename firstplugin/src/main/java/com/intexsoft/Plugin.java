@@ -23,10 +23,10 @@ public class Plugin extends AbstractMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         System.out.println("=========================");
         System.out.println(pathToDirectory);
-        File file = new File(pathToDirectory);
-        System.out.println(file.listFiles().length);
-        File[] files = file.listFiles();
-        int counter = 1;
+        File directory = new File(pathToDirectory);
+        System.out.println(directory.listFiles().length);
+        File[] files = directory.listFiles();
+        int fileNumberCounter = 1;
         for (File tempFile : files) {
             try {
                 FileReader fileReader = new FileReader(tempFile);
@@ -40,24 +40,45 @@ public class Plugin extends AbstractMojo {
                     }
                     stringBuilder.append((char) end);
                 }
-                System.out.println(stringBuilder.toString());
                 JsonNode jsonNode = JsonDeserializer.parse(stringBuilder.toString());
-                System.out.println(jsonNode);
                 if (jsonNode.getClass().isAssignableFrom(JsonObject.class)) {
                     System.out.println(((JsonObject) jsonNode).values);
-                    File file2 = new File("jsonsOutput/CustomClass" + counter + ".java");
-                    file2.createNewFile();
-                    FileWriter fileWriter = new FileWriter(file2, false);
+                    File JsonObjectFile = new File("jsonsOutput/CustomClass" + fileNumberCounter + ".java");
+                    JsonObjectFile.createNewFile();
+                    FileWriter fileWriter = new FileWriter(JsonObjectFile, false);
                     String fieldNames[] = ((JsonObject) jsonNode).values.keySet().toArray(new String[0]);
-                    fileWriter.write("import lombok.*;@Data\n public class CustomClass" + counter + "{ ");
+                    fileWriter.write("import lombok.*;@Data\n public class CustomClass" + fileNumberCounter + "{ ");
                     for (String fieldName : fieldNames) {
+                        if (!((JsonObject) jsonNode).get(fieldName).getClass().isAssignableFrom(JsonObject.class)) {
+                            fileWriter.write("private " + ((JsonObject) jsonNode).get(fieldName).getClass().getSimpleName().replace("Json", "") + " " + fieldName + " =" + ((JsonObject) jsonNode).get(fieldName) + ";");
+                        } else {
+                            fileNumberCounter++;
+                            File nestedJsonObjectFile = new File("jsonsOutput/CustomClass" + fileNumberCounter + ".java");
+                            nestedJsonObjectFile.createNewFile();
+                            FileWriter nestedJsonObjectFileWriter = new FileWriter(nestedJsonObjectFile);
+                            JsonObject jsonObject = (JsonObject) ((JsonObject) jsonNode).get(fieldName);
+                            System.out.println(jsonObject.values);
+                            String fieldNames2[] = jsonObject.values.keySet().toArray(new String[0]);
+                            nestedJsonObjectFileWriter.write("import lombok.*;@Data\n public class CustomClass" + fileNumberCounter + "{ ");
+                            for (String fieldName2 : fieldNames2) {
+                                System.out.println("here");
+                                nestedJsonObjectFileWriter.write("private " + jsonObject.get(fieldName2).getClass().getSimpleName().replace("Json", "") + " " + fieldName2 + " =" + jsonObject.get(fieldName2) + ";");
+                            }
+                            nestedJsonObjectFileWriter.write(" public CustomClass" + fileNumberCounter + " getCustomClass" + fileNumberCounter + "(){\n" +
+                                    "        CustomClass" + fileNumberCounter + " customClass" + fileNumberCounter + "=new CustomClass" + fileNumberCounter + "();\n" +
+                                    "        return customClass" + fileNumberCounter + ";\n" +
+                                    "    }}");
+                            nestedJsonObjectFileWriter.close();
+                            fileWriter.write("private CustomClass" + fileNumberCounter + " customClass" + fileNumberCounter + " =new CustomClass" + fileNumberCounter + "();");
+                            fileWriter.write("private " + "CustomClass" + fileNumberCounter + " " + fieldName + "=getCustomClass" + fileNumberCounter + "();");
+                        }
 
-                        fileWriter.write("private " + ((JsonObject) jsonNode).get(fieldName).getClass().getSimpleName().replace("Json", "") + " " + fieldName + " =" + ((JsonObject) jsonNode).get(fieldName) + ";");
                     }
+                    fileNumberCounter++;
                     fileWriter.write("}");
                     fileWriter.close();
-                    counter++;
                 }
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
