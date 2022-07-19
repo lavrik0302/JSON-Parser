@@ -26,7 +26,6 @@ public class Plugin extends AbstractMojo {
         File directory = new File(pathToDirectory);
         System.out.println(directory.listFiles().length);
         File[] files = directory.listFiles();
-        int fileNumberCounter = 1;
         for (File tempFile : files) {
             try {
                 FileReader fileReader = new FileReader(tempFile);
@@ -42,47 +41,33 @@ public class Plugin extends AbstractMojo {
                 }
                 JsonNode jsonNode = JsonDeserializer.parse(stringBuilder.toString());
                 if (jsonNode.getClass().isAssignableFrom(JsonObject.class)) {
-                    System.out.println(((JsonObject) jsonNode).values);
-                    File JsonObjectFile = new File("jsonsOutput/CustomClass" + fileNumberCounter + ".java");
-                    JsonObjectFile.createNewFile();
-                    FileWriter fileWriter = new FileWriter(JsonObjectFile, false);
-                    String fieldNames[] = ((JsonObject) jsonNode).values.keySet().toArray(new String[0]);
-                    fileWriter.write("import lombok.*;@Data\n public class CustomClass" + fileNumberCounter + "{ ");
-                    for (String fieldName : fieldNames) {
-                        if (!((JsonObject) jsonNode).get(fieldName).getClass().isAssignableFrom(JsonObject.class)) {
-                            fileWriter.write("private " + ((JsonObject) jsonNode).get(fieldName).getClass().getSimpleName().replace("Json", "") + " " + fieldName + " =" + ((JsonObject) jsonNode).get(fieldName) + ";");
-                        } else {
-                            fileNumberCounter++;
-                            File nestedJsonObjectFile = new File("jsonsOutput/CustomClass" + fileNumberCounter + ".java");
-                            nestedJsonObjectFile.createNewFile();
-                            FileWriter nestedJsonObjectFileWriter = new FileWriter(nestedJsonObjectFile);
-                            JsonObject jsonObject = (JsonObject) ((JsonObject) jsonNode).get(fieldName);
-                            System.out.println(jsonObject.values);
-                            String fieldNames2[] = jsonObject.values.keySet().toArray(new String[0]);
-                            nestedJsonObjectFileWriter.write("import lombok.*;@Data\n public class CustomClass" + fileNumberCounter + "{ ");
-                            for (String fieldName2 : fieldNames2) {
-                                System.out.println("here");
-                                nestedJsonObjectFileWriter.write("private " + jsonObject.get(fieldName2).getClass().getSimpleName().replace("Json", "") + " " + fieldName2 + " =" + jsonObject.get(fieldName2) + ";");
-                            }
-                            nestedJsonObjectFileWriter.write(" public CustomClass" + fileNumberCounter + " getCustomClass" + fileNumberCounter + "(){\n" +
-                                    "        CustomClass" + fileNumberCounter + " customClass" + fileNumberCounter + "=new CustomClass" + fileNumberCounter + "();\n" +
-                                    "        return customClass" + fileNumberCounter + ";\n" +
-                                    "    }}");
-                            nestedJsonObjectFileWriter.close();
-                            fileWriter.write("private CustomClass" + fileNumberCounter + " customClass" + fileNumberCounter + " =new CustomClass" + fileNumberCounter + "();");
-                            fileWriter.write("private " + "CustomClass" + fileNumberCounter + " " + fieldName + "=getCustomClass" + fileNumberCounter + "();");
-                        }
-
-                    }
-                    fileNumberCounter++;
-                    fileWriter.write("}");
-                    fileWriter.close();
+                    File jsonObjectFile = new File("jsonsOutput/" + tempFile.getName().substring(0, 1).toUpperCase() + tempFile.getName().substring(1, tempFile.getName().indexOf('.')) + ".java");
+                    jsonObjectFile.createNewFile();
+                    mapObject(jsonNode,jsonObjectFile);
                 }
-
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
     }
-
+public void mapObject(JsonNode jsonNode, File jsonObjectFile) throws IOException {
+    System.out.println(((JsonObject) jsonNode).values);
+    FileWriter fileWriter = new FileWriter(jsonObjectFile, false);
+    String fieldNames[] = ((JsonObject) jsonNode).values.keySet().toArray(new String[0]);
+    fileWriter.write("import lombok.*;@Data\n public class " + jsonObjectFile.getName().substring(0, 1).toUpperCase() + jsonObjectFile.getName().substring(1, jsonObjectFile.getName().indexOf('.')) + "{ ");
+    for (String fieldName : fieldNames) {
+        if (!((JsonObject) jsonNode).get(fieldName).getClass().isAssignableFrom(JsonObject.class)) {
+            fileWriter.write("private " + ((JsonObject) jsonNode).get(fieldName).getClass().getSimpleName().replace("Json", "") + " " + fieldName + " =" + ((JsonObject) jsonNode).get(fieldName) + ";");
+        } else {
+            File file=new File("jsonsOutput/"+fieldName.substring(0,1).toUpperCase()+fieldName.substring(1)+".java");
+            file.createNewFile();
+            mapObject(((JsonObject) jsonNode).get(fieldName),file);
+            fileWriter.write("private "+ fieldName.substring(0,1).toUpperCase()+fieldName.substring(1)+" "+ fieldName+" = new "+fieldName.substring(0,1).toUpperCase()+fieldName.substring(1)+"().get"+fieldName.substring(0,1).toUpperCase()+fieldName.substring(1)+"();");
+        }
+    }
+    String className=jsonObjectFile.getName().substring(0,1).toUpperCase()+jsonObjectFile.getName().substring(1,jsonObjectFile.getName().indexOf('.'));
+    fileWriter.write("public "+className+" get"+className+"(){"+className+" "+ className.toLowerCase()+" = new "+ className+"();return "+className.toLowerCase()+";}");
+    fileWriter.write("}");
+    fileWriter.close();
+    }
 }
