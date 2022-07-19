@@ -1,3 +1,4 @@
+package com.intexsoft.pluginOutput;
 import lombok.*;
 
 @Data
