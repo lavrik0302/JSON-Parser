@@ -54,19 +54,19 @@ public void mapObject(JsonNode jsonNode, File jsonObjectFile) throws IOException
     System.out.println(((JsonObject) jsonNode).values);
     FileWriter fileWriter = new FileWriter(jsonObjectFile, false);
     String fieldNames[] = ((JsonObject) jsonNode).values.keySet().toArray(new String[0]);
-    fileWriter.write("import lombok.*;@Data\n public class " + jsonObjectFile.getName().substring(0, 1).toUpperCase() + jsonObjectFile.getName().substring(1, jsonObjectFile.getName().indexOf('.')) + "{ ");
+    fileWriter.write("import lombok.*;\n\n@Data\npublic class " + jsonObjectFile.getName().substring(0, 1).toUpperCase() + jsonObjectFile.getName().substring(1, jsonObjectFile.getName().indexOf('.')) + " { ");
     for (String fieldName : fieldNames) {
         if (!((JsonObject) jsonNode).get(fieldName).getClass().isAssignableFrom(JsonObject.class)) {
-            fileWriter.write("private " + ((JsonObject) jsonNode).get(fieldName).getClass().getSimpleName().replace("Json", "") + " " + fieldName + " =" + ((JsonObject) jsonNode).get(fieldName) + ";");
+            fileWriter.write("\n    private " + ((JsonObject) jsonNode).get(fieldName).getClass().getSimpleName().replace("Json", "") + " " + fieldName + " = " + ((JsonObject) jsonNode).get(fieldName) + ";\n");
         } else {
             File file=new File("jsonsOutput/"+fieldName.substring(0,1).toUpperCase()+fieldName.substring(1)+".java");
             file.createNewFile();
             mapObject(((JsonObject) jsonNode).get(fieldName),file);
-            fileWriter.write("private "+ fieldName.substring(0,1).toUpperCase()+fieldName.substring(1)+" "+ fieldName+" = new "+fieldName.substring(0,1).toUpperCase()+fieldName.substring(1)+"().get"+fieldName.substring(0,1).toUpperCase()+fieldName.substring(1)+"();");
+            fileWriter.write("\n    private "+ fieldName.substring(0,1).toUpperCase()+fieldName.substring(1)+" "+ fieldName+" = new "+fieldName.substring(0,1).toUpperCase()+fieldName.substring(1)+"().get"+fieldName.substring(0,1).toUpperCase()+fieldName.substring(1)+"();\n");
         }
     }
     String className=jsonObjectFile.getName().substring(0,1).toUpperCase()+jsonObjectFile.getName().substring(1,jsonObjectFile.getName().indexOf('.'));
-    fileWriter.write("public "+className+" get"+className+"(){"+className+" "+ className.toLowerCase()+" = new "+ className+"();return "+className.toLowerCase()+";}");
+    fileWriter.write("\n    public "+className+" get"+className+"() {\n        "+className+" "+ className.toLowerCase()+" = new "+ className+"();\n        return "+className.toLowerCase()+";\n    }\n");
     fileWriter.write("}");
     fileWriter.close();
     }
