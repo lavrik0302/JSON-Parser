@@ -10,7 +10,7 @@
     <modules>
         <module>source</module>
         <module>firstplugin</module>
-        <module>common</module>
+        <module>jsonsOutput</module>
     </modules>
     <packaging>pom</packaging>
 

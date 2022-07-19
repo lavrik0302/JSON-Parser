@@ -1,0 +1,1 @@
+{"club":"Arsenal", "points":67, "qualifiedToUCL":false}
