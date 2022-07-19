@@ -1,7 +1,7 @@
 import lombok.*;
 
 @Data
-public class FlatInfo {
+public class FlatInfo { 
     private Number flatNumber = 98;
 
     private Number floor = 2;

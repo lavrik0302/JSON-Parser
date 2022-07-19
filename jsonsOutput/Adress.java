@@ -1,7 +1,7 @@
 import lombok.*;
 
 @Data
-public class Adress {
+public class Adress { 
     private FlatInfo flatInfo = new FlatInfo().getFlatInfo();
 
     private String street = "Lenina";

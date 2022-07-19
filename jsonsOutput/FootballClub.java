@@ -1,7 +1,7 @@
 import lombok.*;
 
 @Data
-public class FootballClub {
+public class FootballClub { 
     private String club = "Arsenal";
 
     private Boolean qualifiedToUCL = false;

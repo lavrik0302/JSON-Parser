@@ -28,7 +28,7 @@
                 <version>1.2-SNAPSHOT</version>
                 <configuration>
                     <pathToDirectory>
-                        /home/INTEXSOFT/alexey.lavrenchuk/IdeaProjects/test1/JSON-Parser/jsonFiles
+                        jsonFiles
                     </pathToDirectory>
                 </configuration>
                 <executions>

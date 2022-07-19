@@ -1,7 +1,7 @@
 import lombok.*;
 
 @Data
-public class User {
+public class User { 
     private String name = "Alexey";
 
     private Number age = 12;
