@@ -10,6 +10,7 @@
     <modules>
         <module>source</module>
         <module>jsonBuildtimePlugin</module>
+        <module>buildtime</module>
     </modules>
     <packaging>pom</packaging>
 

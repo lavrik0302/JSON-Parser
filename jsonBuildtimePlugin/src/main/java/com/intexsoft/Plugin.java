@@ -21,11 +21,8 @@ public class Plugin extends AbstractMojo {
     private String pathToDirectory;
 
     public void execute() throws MojoExecutionException, MojoFailureException {
-        System.out.println("=========================");
-        System.out.println(pathToDirectory);
 
         File directory = new File(pathToDirectory);
-        System.out.println(directory.listFiles().length);
         File[] files = directory.listFiles();
         for (File tempFile : files) {
             try {
@@ -42,7 +39,7 @@ public class Plugin extends AbstractMojo {
                 }
                 JsonNode jsonNode = JsonDeserializer.parse(stringBuilder.toString());
                 if (jsonNode.getClass().isAssignableFrom(JsonObject.class)) {
-                    File jsonObjectFile = new File("jsonBuildtimePlugin/src/main/java/com/intexsoft/pluginOutput/" + tempFile.getName().substring(0, 1).toUpperCase() + tempFile.getName().substring(1, tempFile.getName().indexOf('.')) + ".java");
+                    File jsonObjectFile = new File("buildtime/src/main/java/com/intexsoft/" + tempFile.getName().substring(0, 1).toUpperCase() + tempFile.getName().substring(1, tempFile.getName().indexOf('.')) + ".java");
                     jsonObjectFile.createNewFile();
                     mapObject(jsonNode, jsonObjectFile);
                 }
@@ -53,15 +50,14 @@ public class Plugin extends AbstractMojo {
     }
 
     public void mapObject(JsonNode jsonNode, File jsonObjectFile) throws IOException {
-        System.out.println(((JsonObject) jsonNode).values);
         FileWriter fileWriter = new FileWriter(jsonObjectFile, false);
         String fieldNames[] = ((JsonObject) jsonNode).values.keySet().toArray(new String[0]);
-        fileWriter.write("package com.intexsoft.pluginOutput;\nimport lombok.*;\n\n@Data\npublic class " + jsonObjectFile.getName().substring(0, 1).toUpperCase() + jsonObjectFile.getName().substring(1, jsonObjectFile.getName().indexOf('.')) + " { ");
+        fileWriter.write("package com.intexsoft;\nimport lombok.*;\n\n@Data\npublic class " + jsonObjectFile.getName().substring(0, 1).toUpperCase() + jsonObjectFile.getName().substring(1, jsonObjectFile.getName().indexOf('.')) + " { ");
         for (String fieldName : fieldNames) {
             if (!((JsonObject) jsonNode).get(fieldName).getClass().isAssignableFrom(JsonObject.class)) {
                 fileWriter.write("\n    private " + ((JsonObject) jsonNode).get(fieldName).getClass().getSimpleName().replace("Json", "") + " " + fieldName + " = " + ((JsonObject) jsonNode).get(fieldName) + ";\n");
             } else {
-                File file = new File("jsonBuildtimePlugin/src/main/java/com/intexsoft/pluginOutput/" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1) + ".java");
+                File file = new File("buildtime/src/main/java/com/intexsoft/" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1) + ".java");
                 file.createNewFile();
                 mapObject(((JsonObject) jsonNode).get(fieldName), file);
                 fileWriter.write("\n    private " + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1) + " " + fieldName + " = new " + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1) + "().get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1) + "();\n");

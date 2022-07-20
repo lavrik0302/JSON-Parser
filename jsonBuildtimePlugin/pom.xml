@@ -76,24 +76,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>com.intexsoft</groupId>
-                <artifactId>jsonBuildtimePlugin</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <configuration>
-                    <pathToDirectory>
-                        jsonBuildtimePlugin/src/main/java/com/intexsoft/jsonFiles/
-                    </pathToDirectory>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>startprogram</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+
         </plugins>
     </build>
 </project>
