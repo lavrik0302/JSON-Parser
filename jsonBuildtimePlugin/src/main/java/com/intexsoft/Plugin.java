@@ -27,40 +27,37 @@ public class Plugin extends AbstractMojo {
         File directory = new File(pathToDirectory);
         List<File> files = setFiles(directory);
         for (File tempFile : files) {
-            if (tempFile.isDirectory()) {
-
-            } else {
-                try {
-                    FileReader fileReader = new FileReader(tempFile);
-                    StringBuilder stringBuilder = new StringBuilder();
-                    int end = 0;
-                    while (true) {
-                        try {
-                            if (!((end = fileReader.read()) != -1)) break;
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        stringBuilder.append((char) end);
+            try {
+                FileReader fileReader = new FileReader(tempFile);
+                StringBuilder stringBuilder = new StringBuilder();
+                int end = 0;
+                while (true) {
+                    try {
+                        if (!((end = fileReader.read()) != -1)) break;
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
-
-                    JsonNode jsonNode = JsonDeserializer.parse(stringBuilder.toString());
-                    if (jsonNode.getClass().isAssignableFrom(JsonObject.class)) {
-                        System.out.println("here");
-                        File dirTar = new File("buildtime/target/");
-                        dirTar.mkdir();
-                        File dir = new File("buildtime/target/generated-sources/");
-                        dir.mkdir();
-                        System.out.println(dir);
-                        File jsonObjectFile = new File("buildtime/target/generated-sources/" + tempFile.getName().substring(0, 1).toUpperCase() + tempFile.getName().substring(1, tempFile.getName().indexOf('.')) + ".java");
-                        System.out.println(jsonObjectFile);
-                        jsonObjectFile.createNewFile();
-                        System.out.println("aftercreatenew file");
-                        mapObject(jsonNode, jsonObjectFile);
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    stringBuilder.append((char) end);
                 }
+
+                JsonNode jsonNode = JsonDeserializer.parse(stringBuilder.toString());
+                if (jsonNode.getClass().isAssignableFrom(JsonObject.class)) {
+                    System.out.println("here");
+                    File dirTar = new File("buildtime/target/");
+                    dirTar.mkdir();
+                    File dir = new File("buildtime/target/generated-sources/");
+                    dir.mkdir();
+                    System.out.println(dir);
+                    File jsonObjectFile = new File("buildtime/target/generated-sources/" + tempFile.getName().substring(0, 1).toUpperCase() + tempFile.getName().substring(1, tempFile.getName().indexOf('.')) + ".java");
+                    System.out.println(jsonObjectFile);
+                    jsonObjectFile.createNewFile();
+                    System.out.println("aftercreatenew file");
+                    mapObject(jsonNode, jsonObjectFile);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
+
         }
     }
 
