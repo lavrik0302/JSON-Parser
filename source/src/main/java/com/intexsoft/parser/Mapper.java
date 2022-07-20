@@ -47,7 +47,7 @@ public class Mapper {
 
                         } catch (IllegalArgumentException | ClassCastException e) {
 
-                            Object arr[] = field.getType().getEnumConstants();
+                            Object[] arr = field.getType().getEnumConstants();
                             String enumValue = String.valueOf(((JsonObject) jsonNode).values.get(field.getType().getSimpleName().toLowerCase()));
                             boolean foundEnumValue = false;
                             for (Object temp : arr) {
