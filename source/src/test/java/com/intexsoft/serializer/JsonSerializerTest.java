@@ -172,19 +172,19 @@ public class JsonSerializerTest {
 
     @Test
     public void serializeArrayTest() {
-        Object array[] = {true, "text", 3, null};
+        Object[] array = {true, "text", 3, null};
         Assert.assertTrue(jsonSerializer.serialize(array).equals("[true, \"text\", 3, null]"));
     }
 
     @Test
     public void serializeNullArrayTest() {
-        Object array[] = {};
+        Object[] array = {};
         Assert.assertTrue(jsonSerializer.serialize(array).equals("[]"));
     }
 
     @Test
     public void serializeArrayFailTest() {
-        Object array[] = {true, "text", 3, null};
+        Object[] array = {true, "text", 3, null};
         Assert.assertFalse(jsonSerializer.serialize(array).equals("[tttrue, \"text\", 3, null]"));
     }
 

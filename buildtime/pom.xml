@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>parser</artifactId>
+        <groupId>com.intexsoft</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>buildtime</artifactId>
+    <name>Archetype - buildtime</name>
+    <url>http://maven.apache.org</url>
+    <dependencies>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <scope>provided</scope>
+            <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <sourceDirectory>target/generated-sources</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>com.intexsoft</groupId>
+                <artifactId>jsonBuildtimePlugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <configuration>
+                    <pathToDirectory>
+                        buildtime/src/main/resources/jsonFiles/
+                    </pathToDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>startprogram</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

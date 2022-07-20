@@ -8,7 +8,6 @@ import com.intexsoft.utils.exceptions.NoSuchEnumValue;
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Collectors;
-
 public class Mapper {
 
     public <T> T map(JsonNode jsonNode, Class<T> classType) {
@@ -48,7 +47,7 @@ public class Mapper {
 
                         } catch (IllegalArgumentException | ClassCastException e) {
 
-                            Object arr[] = field.getType().getEnumConstants();
+                            Object[] arr = field.getType().getEnumConstants();
                             String enumValue = String.valueOf(((JsonObject) jsonNode).values.get(field.getType().getSimpleName().toLowerCase()));
                             boolean foundEnumValue = false;
                             for (Object temp : arr) {

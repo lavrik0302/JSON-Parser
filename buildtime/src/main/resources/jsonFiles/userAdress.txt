@@ -1,0 +1,1 @@
+{"city":"Grodno", "moreThan100k":true, "adress":{"street":"Lenina", "houseNumber":12, "flatInfo":{"floor":2, "flatNumber":98}}}
