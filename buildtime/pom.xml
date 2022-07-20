@@ -11,12 +11,6 @@
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-            <version>1.18.12</version>
-        </dependency>
-        <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
             <scope>provided</scope>
@@ -30,6 +24,7 @@
         </dependency>
     </dependencies>
     <build>
+        <sourceDirectory>target/generated-sources</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>com.intexsoft</groupId>
@@ -42,7 +37,7 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <phase>compile</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>startprogram</goal>
                         </goals>
